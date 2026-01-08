@@ -11,7 +11,7 @@ pub mod memory;
 
 extern crate alloc;
 
-
+use task::cpu_info::cpuinfo::get_info_cpu;
 
 #[global_allocator]
 static ALLOCATOR: LockedHeap = LockedHeap::empty();
@@ -30,11 +30,12 @@ pub extern "C" fn _start() -> ! {
 
 
 
-    //text_write();
+
     
     println!("Hello, KSkernelOS! {}", 1);
     println_warn!("This is a warning message!");
     println_error!("This is an error message! {}", 1);
+    println_warn!("{}", 40);
 
 
     loop {
