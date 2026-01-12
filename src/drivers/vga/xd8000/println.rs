@@ -13,10 +13,10 @@ use core::fmt::Write;
 
 // CODE IMPLEMENTATION
 // Static mutable buffers for text and color attributes
-static SKREEN_TEXT: Mutex<[u8; 25 * 80]> = Mutex::new([0; 25 * 80]);
-static SKREEN_COLOR: Mutex<[u8; 25 * 80]> = Mutex::new([0; 25 * 80]);
 
 struct VgaState {
+    skreen_text: [u8; 25 * 80],
+    skreen_color: [u8; 25 * 80],
     iter: u32,
     row_write: u32,
     write_color: u8,
@@ -25,6 +25,8 @@ struct VgaState {
 impl VgaState {
     const fn new() -> Self {
         Self {
+            skreen_text: [0; 25 * 80],
+            skreen_color: [0; 25 * 80],
             iter: 0,
             row_write: 0,
             write_color: Color::WHITE,
@@ -34,31 +36,26 @@ impl VgaState {
 
 static STATE: Mutex<VgaState> = Mutex::new(VgaState::new());
 
-//*-END MACROS println!();-*/
-pub fn println(args: core::fmt::Arguments) {
+fn vga_print(args: core::fmt::Arguments, color: u8) {
     let mut printer = VGAPrinter;
 
-    STATE.lock().write_color = Color::WHITE;
-
+    STATE.lock().write_color = color;
     core::fmt::Write::write_fmt(&mut printer, args).unwrap();
+}
+
+//*-END MACROS println!();-*/
+pub fn println(args: core::fmt::Arguments) {
+    vga_print(args, Color::WHITE);
 }
 
 //*-END MACROS println_warn();-*/
 pub fn println_warn(args: core::fmt::Arguments) {
-    let mut printer = VGAPrinter;
-
-    STATE.lock().write_color = Color::warning();
-
-    core::fmt::Write::write_fmt(&mut printer, args).unwrap();
+    vga_print(args, Color::warning());
 }
 
 //*-END MACROS println_warn();-*/
 pub fn println_error(args: core::fmt::Arguments) {
-    let mut printer = VGAPrinter;
-
-    STATE.lock().write_color = Color::error();
-
-    core::fmt::Write::write_fmt(&mut printer, args).unwrap();
+    vga_print(args, Color::error());
 }
 
 struct VGAPrinter;
@@ -68,14 +65,16 @@ impl Write for VGAPrinter {
     fn write_str(&mut self, message: &str) -> core::fmt::Result {
         //let text = message.bytes().enumerate();
         //call the buffer function
-        bufer_vga(message);
+        let mut state = STATE.lock();
+
+        bufer_vga(message, &mut state);
 
         //write the buffered data to VGA memory
         let base = 0xb8000 as *mut u8;
 
         //- - - - - - - - - - - - - - - - - - - - - - - - -//
         //get the global iteration and calculate the row
-        let global_iteration = STATE.lock().iter;
+        let global_iteration = state.iter;
         let row = global_iteration / 80;
         let vga_buffer = unsafe {
             if global_iteration == 0 {
@@ -90,10 +89,10 @@ impl Write for VGAPrinter {
         //get the slice for the current row
         unsafe {
             //get the slice indices for the current row
-            let (start, stop) = slise_buffer_row();
+            let (start, stop) = slise_buffer_row(&mut state);
             //get the slices from the text and color buffers
-            let slise_text_buffer = &SKREEN_TEXT.lock()[start..stop];
-            let slise_color_buffer = &SKREEN_COLOR.lock()[start..stop];
+            let slise_text_buffer = &state.skreen_text[start..stop];
+            let slise_color_buffer = &state.skreen_color[start..stop];
             //write the slices to VGA memory
 
             for i in 0..80 {
@@ -109,48 +108,48 @@ impl Write for VGAPrinter {
 }
 
 //*-Function to buffer VGA output-*/
-fn bufer_vga(message: &str) {
+fn bufer_vga(message: &str, state: &mut VgaState) {
     //convert message to bytes
     let text = message.as_bytes();
 
     //get the global write color
-    let global_color = STATE.lock().write_color;
+    let global_color = state.write_color;
 
     //call global iteration function
-    global_iteration_();
+    global_iteration_(state);
 
     //get the start base for writing
-    let start_base = (STATE.lock().row_write as usize) * 80;
+    let start_base = (state.row_write as usize) * 80;
 
     //write the text and color to the buffers
-    unsafe {
+    {
         for (i, &byte) in text.iter().enumerate() {
             let idx = start_base + i;
             if idx >= 25 * 80 {
                 break;
             }
 
-            SKREEN_TEXT.lock()[idx] = byte;
-            SKREEN_COLOR.lock()[idx] = global_color as u8;
+            state.skreen_text[idx] = byte;
+            state.skreen_color[idx] = global_color as u8;
 
-            STATE.lock().iter = (idx + 1) as u32;
+            state.iter = (idx + 1) as u32;
         }
     }
 }
 //*-Function to manage global iteration and row writing-*/
-fn global_iteration_() {
+fn global_iteration_(state: &mut VgaState) {
     //get the global iteration
-    let global_iteration = STATE.lock().iter;
+    let global_iteration = state.iter;
 
     //calculate the current row
     let row = global_iteration / 80;
     //update the ROW_WRITE based on the current row
-    unsafe {
+    {
         let row_write: u32;
 
         if row == 0 {
             //check if the first two characters are non-zero
-            let logick_slise = &SKREEN_TEXT.lock()[0..2];
+            let logick_slise = &state.skreen_text[0..2];
 
             if logick_slise[0] != 0 && logick_slise[1] != 0 {
                 //move to the next row
@@ -164,20 +163,20 @@ fn global_iteration_() {
             row_write = row + 1;
         } else {
             //clear the buffer and reset to the first row
-            clear_buffer();
+            clear_buffer(state);
             row_write = 0;
         }
         //update the ROW_WRITE variable
-        STATE.lock().row_write = row_write;
+        state.row_write = row_write;
     }
 }
 //*-Function to clear the text and color buffers-*/
-fn clear_buffer() {
+fn clear_buffer(state: &mut VgaState) {
     unsafe {
         //clear the SKREEN_TEXT and SKREEN_COLOR buffers
         for i in 0..(25 * 80) {
-            SKREEN_TEXT.lock()[i] = 0;
-            SKREEN_COLOR.lock()[i] = 0;
+            state.skreen_text[i] = 0;
+            state.skreen_color[i] = 0;
         }
 
         //clear the VGA memory
@@ -190,9 +189,9 @@ fn clear_buffer() {
     }
 }
 //*-Function to get the slice indices for the current row in the buffers-*/
-fn slise_buffer_row() -> (usize, usize) {
+fn slise_buffer_row(state: &mut VgaState) -> (usize, usize) {
     //get the global iteration
-    let global_iteration = STATE.lock().iter;
+    let global_iteration = state.iter;
     //calculate the current row
     let row = global_iteration / 80;
     //return the start and stop indices for the current row

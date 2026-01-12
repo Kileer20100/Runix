@@ -22,7 +22,9 @@ use core::panic::PanicInfo;
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
     println!("Runix Kernel v0.1.0");
-    println_error!("2");
+    println_error!(
+        ""
+    );
     println_warn!("3");
     println!("4");
     println!("5");
