@@ -10,8 +10,6 @@ pub mod task;
 
 extern crate alloc;
 
-use task::cpu_info::cpuinfo::get_info_cpu;
-
 #[global_allocator]
 static ALLOCATOR: LockedHeap = LockedHeap::empty();
 
@@ -22,9 +20,15 @@ use core::panic::PanicInfo;
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
     println!("Runix Kernel v0.1.0");
-    println!("Runix Kernel v0.1.0");
-
-    loop {}
+    println!("\nRunix Kernel v0.1.0");
+    let mut couter = 0;
+    loop {
+        println!("\rTick: {}", couter);
+        couter += 1;
+        for _ in 0..100000 {
+            core::hint::spin_loop();
+        }
+    }
 }
 
 #[panic_handler]
