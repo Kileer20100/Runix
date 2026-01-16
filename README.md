@@ -1,6 +1,9 @@
 # Runix — Учебная операционная система на Rust
 
-<img width="400" height="400" alt="Runix_black_logo" src="https://github.com/user-attachments/assets/91216cae-2fee-4b19-9624-c14b55152dcd" />
+<div style="text-align:center">
+  <img src="https://github.com/user-attachments/assets/91216cae-2fee-4b19-9624-c14b55152dcd" width="400" height="400" alt="Runix_black_logo">
+</div>
+
 
 
 ## О проекте
