@@ -1,0 +1,2 @@
+cargo:rerun-if-changed=src/task/cpu_info/cpuinfo.asm
+cargo:rustc-link-arg=target/asm/cpu_info.o
