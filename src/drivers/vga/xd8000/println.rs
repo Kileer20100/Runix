@@ -91,9 +91,8 @@ impl VgaState {
 
     /// Writes a single printable character to the buffer and screen.
     fn main_write_char(&mut self, byte: u8) {
-        self.check_buffer(); // Ensure we're within bounds
         self.render_vga_char(byte); // Write to buffer and VGA memory
-        self.col += 1; // Advance cursor
+        self.check_buffer(); // Ensure we're within bounds
     }
 
     /// Renders a single character to both the internal buffer and VGA hardware memory.
@@ -111,6 +110,7 @@ impl VgaState {
             *addr = self.screen_text[idx];
             *addr.offset(1) = self.screen_color[idx];
         }
+        self.col += 1; // Advance cursor
     }
 
     /// Re-renders the entire screen from the internal buffer.
@@ -132,7 +132,7 @@ impl VgaState {
         if self.col >= 80 {
             self.next_line(); // Wrap to next line
         }
-        if self.row == 24 {
+        if self.row == 24 && self.col >= 80 {
             self.scroll_up(); // Scroll when at bottom
         }
     }
@@ -191,6 +191,8 @@ impl VgaState {
         if self.row < 24 {
             self.row += 1;
             self.col = 0;
+        } else {
+            self.scroll_up();
         }
         // If on last line (row == 24), scroll_up() is called via check_buffer()
     }
