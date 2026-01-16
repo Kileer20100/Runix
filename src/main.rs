@@ -19,12 +19,14 @@ use core::panic::PanicInfo;
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
-    println!("Runix Kernel v0.1.0");
+    println_error!("\nRunix Error: {}", 0);
+    println_warn!("\n\tRunix Warn: {}", 1);
+    println!("\r{} v0.1.0", "Runix Kernel");
     let mut couter = 0;
     loop {
         println!("\nTick: {}", couter);
         couter += 1;
-        for _ in 0..10000 {
+        for _ in 0..1 {
             core::hint::spin_loop();
         }
     }
