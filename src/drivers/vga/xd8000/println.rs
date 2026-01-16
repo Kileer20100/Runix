@@ -194,7 +194,7 @@ impl VgaState {
         } else {
             self.scroll_up();
         }
-        // If on last line (row == 24), scroll_up() is called via check_buffer()
+        // If on last line (row == 24), scroll_up() is called vi a check_buffer()
     }
 
     /// Simple tab implementation: advance cursor by 4 columns.
