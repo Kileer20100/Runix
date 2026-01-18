@@ -1,0 +1,11 @@
+{
+	"id": "folder-tabulation",
+	"name": "Folder Tabulation",
+	"version": "1.0.2",
+	"minAppVersion": "0.15.0",
+	"description": "Enables navigation between files in a folder via hotkeys and commands.",
+	"author": "SpeedaRJ",
+	"authorUrl": "https://github.com/SpeedaRJ",
+	"fundingUrl": "https://ko-fi.com/speedarj",
+	"isDesktopOnly": false
+}
