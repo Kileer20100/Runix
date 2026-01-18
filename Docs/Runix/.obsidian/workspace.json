@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "driver/Creating_first_Runix_VGA_text_output_driver.md",
+                "file": "Планировщик/Как операционные системы на самом деле переключают задачи.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Creating_first_Runix_VGA_text_output_driver"
+              "title": "Как операционные системы на самом деле переключают задачи"
             }
           }
         ]
@@ -180,18 +180,17 @@
       "daily-notes:Сьогоднішня нотатка": false,
       "templates:Вставити шаблон": false,
       "command-palette:Відкрити меню команд": false,
-      "bases:Create new base": false,
-      "webpage-html-export:Експортувати як HTML": false
+      "bases:Create new base": false
     }
   },
   "active": "765b96c04027514a",
   "lastOpenFiles": [
+    "driver/Creating_first_Runix_VGA_text_output_driver.md",
     "media/Minimum_working_core.png",
     "об авторе/Creating_an_Operating_System_in_Rust.md",
     "Warn.md",
     "start/Creating_Minimal_Rust_Executable_for_Systems_Programming.md",
     "callout.md",
-    "driver/Creating_first_Runix_VGA_text_output_driver.md",
     "start/Building_Minimal_Rust_Kernel_Practical_Start_Runix.md",
     "media (Копія)/scroll_up.mp4",
     "media (Копія)/first_line.mp4",
