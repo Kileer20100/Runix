@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-553d22a9.js";
+            window.path_to_searchindex_js = "searchindex-5c4cdd07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-8e7fd859.js"></script>
+        <script src="toc-0e4afa91.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -1378,7 +1378,104 @@ STATE.lock().write_color = color;  // Мьютекс освобождается!
 <li>Принципы создания безопасных абстракций</li>
 <li>Подход к обработке edge cases и граничных условий</li>
 </ul>
-<p>[[Планировщик Вступление]]</p>
+<p><a href="#создание-первого-кода-на-языке-asm">Создание первого кода на языке ASM</a></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="создание-первого-кода-на-языке-asm"><a class="header" href="#создание-первого-кода-на-языке-asm"><strong>Создание первого кода на языке ASM</strong></a></h1>
+<h2 id="введение-необходимость-ассемблера-в-ядре"><a class="header" href="#введение-необходимость-ассемблера-в-ядре"><strong>Введение: Необходимость ассемблера в ядре</strong></a></h2>
+<p>Мы уже создали первый драйвер на Rust. Теперь нужно подключить ASM к нашему Rust-коду. Зачем это нужно? Потому что невозможно создать планировщик для ядра без прямого обращения к ассемблеру. Мы обсудим это подробнее в будущем.</p>
+<h2 id="интеграция-ассемблера-в-rust"><a class="header" href="#интеграция-ассемблера-в-rust"><strong>Интеграция ассемблера в Rust</strong></a></h2>
+<h3 id="rust-код-с-вызовом-ассемблерной-функции"><a class="header" href="#rust-код-с-вызовом-ассемблерной-функции"><strong>Rust-код с вызовом ассемблерной функции</strong></a></h3>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// src/cpu/cpu_info.rs
+
+use crate::println;
+
+// Объявляем внешнюю ассемблерную функцию
+unsafe extern "C" {
+    fn add(a: i64, b: i64) -&gt; i64;
+}
+
+pub fn cpu_info() {
+    println!("Add: {}", unsafe {
+        add(1, 2)
+    });
+}
+<span class="boring">}</span></code></pre>
+<p><strong>Что здесь происходит:</strong></p>
+<ol>
+<li><code>extern "C"</code> — указывает, что функция использует соглашение о вызовах C</li>
+<li><code>unsafe</code> — необходим, так как вызываем код, который Rust не может проверить</li>
+<li><code>add(1, 2)</code> — вызываем ассемблерную функцию сложения</li>
+</ol>
+<h3 id="ассемблерная-реализация"><a class="header" href="#ассемблерная-реализация"><strong>Ассемблерная реализация</strong></a></h3>
+<pre><code class="language-nasm">; src/cpu/cpu_info.asm
+bits 64          ; 64-битный режим процессора
+global add       ; Экспортируем функцию для линковки
+
+section .text    ; Исполняемый сегмент кода
+add:
+    mov rax, rdi ; Первый аргумент (a) из RDI в RAX
+    add rax, rsi ; Прибавляем второй аргумент (b) из RSI
+    ret          ; Возвращаем результат в RAX
+</code></pre>
+<p><strong>Объяснение:</strong></p>
+<ol>
+<li><code>bits 64</code> — генерируем 64-битный код</li>
+<li><code>global add</code> — делаем функцию видимой для линковщика</li>
+<li><code>add:</code> — метка функции</li>
+<li>Согласно System V AMD64 ABI:
+<ul>
+<li>Первый аргумент передаётся в RDI</li>
+<li>Второй аргумент передаётся в RSI</li>
+<li>Результат возвращается в RAX</li>
+</ul>
+</li>
+</ol>
+<h2 id="сборка-проекта"><a class="header" href="#сборка-проекта"><strong>Сборка проекта</strong></a></h2>
+<h3 id="команды-сборки-вручную"><a class="header" href="#команды-сборки-вручную"><strong>Команды сборки вручную</strong></a></h3>
+<pre><code class="language-bash"># Компилируем ассемблерный код
+nasm -f elf64 src/cpu/cpu_info.asm -o cpu_info.o
+
+# Создаём статическую библиотеку
+ar rcs libasm.a cpu_info.o
+</code></pre>
+<h3 id="автоматизация-сборки-через-buildrs"><a class="header" href="#автоматизация-сборки-через-buildrs"><strong>Автоматизация сборки через build.rs</strong></a></h3>
+<pre class="playground"><code class="language-rust">// build.rs
+use std::env;
+use std::path::PathBuf;
+
+fn main() {
+    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+
+    // Копируем собранную библиотеку (предполагаем, что она уже собрана)
+    std::fs::copy("libasm.a", out_dir.join("libasm.a")).unwrap();
+
+    // Указываем линковщику где искать библиотеку
+    println!("cargo:rustc-link-search=native={}", out_dir.display());
+    println!("cargo:rustc-link-lib=static=asm");
+}</code></pre>
+<h2 id="как-это-работает-вместе"><a class="header" href="#как-это-работает-вместе"><strong>Как это работает вместе</strong></a></h2>
+<h3 id="процесс-сборки"><a class="header" href="#процесс-сборки"><strong>Процесс сборки:</strong></a></h3>
+<ol>
+<li>NASM компилирует <code>cpu_info.asm</code> в объектный файл <code>cpu_info.o</code></li>
+<li>AR создаёт статическую библиотеку <code>libasm.a</code></li>
+<li>build.rs копирует библиотеку в выходную директорию Cargo</li>
+<li>Rust линковщик подключает библиотеку к нашему ядру</li>
+<li>Rust код вызывает ассемблерную функцию через FFI</li>
+</ol>
+<h3 id="результат-выполнения"><a class="header" href="#результат-выполнения"><strong>Результат выполнения:</strong></a></h3>
+<p>При вызове <code>cpu_info()</code> будет выведено:
+<img src="media/add_asm.png" alt="core"></p>
+<h2 id="следующие-шаги"><a class="header" href="#следующие-шаги"><strong>Следующие шаги</strong></a></h2>
+<p>Это базовая интеграция ассемблера. В будущем мы:</p>
+<ol>
+<li>Добавим автоматическую сборку ассемблерного кода в build.rs</li>
+<li>Создадим реальные функции работы с процессором</li>
+<li>Реализуем переключение контекста для планировщика</li>
+<li>Добавим обработку прерываний</li>
+</ol>
+<p>Сейчас мы доказали, что можем вызывать ассемблерный код из Rust, что открывает путь к созданию полноценного планировщика задач.</p>
 
                     </main>
 
@@ -1403,22 +1500,6 @@ STATE.lock().write_color = color;  // Мьютекс освобождается!
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

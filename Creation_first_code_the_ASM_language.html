@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Создание минимального исполняемого файла на Rust для системного программирования - Runix</title>
+        <title>Создание первого кода на языке ASM - Runix</title>
 
 
         <!-- Custom HTML head -->
@@ -177,158 +177,111 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="создание-минимального-исполняемого-файла-на-rust-для-системного-программирования"><a class="header" href="#создание-минимального-исполняемого-файла-на-rust-для-системного-программирования">Создание минимального исполняемого файла на Rust для системного программирования</a></h2>
-<h2 id="введение"><a class="header" href="#введение">Введение</a></h2>
-<p>Первый шаг в создании операционной системы на Rust — разработка исполняемого файла, который не зависит от стандартной библиотеки и окружения операционной системы. Такой файл может выполняться напрямую на "голом железе", без поддержки со стороны существующей ОС. Это фундаментальное требование для ядра операционной системы, которое само должно предоставлять базовые сервисы, а не полагаться на них.</p>
-<p>В отличие от обычных программ Rust, которые автоматически используют стандартную библиотеку и среду выполнения, системное программирование требует явного отказа от этих абстракций. Это позволяет получить полный контроль над аппаратным обеспечением, но также накладывает ответственность за реализацию базовых механизмов, которые в обычных условиях предоставляются операционной системой.</p>
-<h2 id="отказ-от-стандартной-библиотеки"><a class="header" href="#отказ-от-стандартной-библиотеки">Отказ от стандартной библиотеки</a></h2>
-<p>Стандартная библиотека Rust предоставляет удобные абстракции, но большинство из них зависят от функций операционной системы: файловые операции, сетевое взаимодействие, управление памятью через кучу, многопоточность. Для ядра ОС эти зависимости неприемлемы, поскольку само ядро должно предоставлять эти сервисы.</p>
-<p>Для отключения стандартной библиотеки используется атрибут <code>#![no_std]</code>:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span>#![no_std]
-
-<span class="boring">fn main() {
-</span>// Больше нет доступа к std::*
-// Но core и alloc по-прежнему доступны
-<span class="boring">}</span></code></pre>
-<p>Этот атрибут указывает компилятору, что программа не должна связываться со стандартной библиотекой. Однако сохраняется доступ к библиотеке <code>core</code>, которая содержит фундаментальные типы и трейты, не зависящие от ОС: <code>Option</code>, <code>Result</code>, итераторы, примитивные типы и т.д.</p>
-<h2 id="обработка-паники"><a class="header" href="#обработка-паники">Обработка паники</a></h2>
-<p>В обычных программах Rust паника вызывает распечатку сообщения об ошибке и раскрутку стека (unwinding). Оба этих механизма зависят от стандартной библиотеки и операционной системы. В системном программировании необходимо предоставить собственную реализацию:</p>
+                        <h1 id="создание-первого-кода-на-языке-asm"><a class="header" href="#создание-первого-кода-на-языке-asm"><strong>Создание первого кода на языке ASM</strong></a></h1>
+<h2 id="введение-необходимость-ассемблера-в-ядре"><a class="header" href="#введение-необходимость-ассемблера-в-ядре"><strong>Введение: Необходимость ассемблера в ядре</strong></a></h2>
+<p>Мы уже создали первый драйвер на Rust. Теперь нужно подключить ASM к нашему Rust-коду. Зачем это нужно? Потому что невозможно создать планировщик для ядра без прямого обращения к ассемблеру. Мы обсудим это подробнее в будущем.</p>
+<h2 id="интеграция-ассемблера-в-rust"><a class="header" href="#интеграция-ассемблера-в-rust"><strong>Интеграция ассемблера в Rust</strong></a></h2>
+<h3 id="rust-код-с-вызовом-ассемблерной-функции"><a class="header" href="#rust-код-с-вызовом-ассемблерной-функции"><strong>Rust-код с вызовом ассемблерной функции</strong></a></h3>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use core::panic::PanicInfo;
+</span>// src/cpu/cpu_info.rs
 
-#[panic_handler]
-fn panic(_info: &amp;PanicInfo) -&gt; ! {
-    // В ядре ОС мы не можем полагаться на стандартные
-    // механизмы обработки паники
-    // Здесь можно, например, вывести сообщение на экран
-    // или перезагрузить систему
-    loop {} // Бесконечный цикл как простейшая заглушка
-}
-<span class="boring">}</span></code></pre>
-<p>Паника в системном коде должна рассматриваться как критическая ошибка, часто требующая остановки системы или перезагрузки.</p>
-<h2 id="отказ-от-раскрутки-стека"><a class="header" href="#отказ-от-раскрутки-стека">Отказ от раскрутки стека</a></h2>
-<p>Раскрутка стека при панике — сложный процесс, требующий поддержки со стороны операционной системы. Для системного программирования обычно используется стратегия "abort" — немедленное прерывание выполнения без очистки ресурсов:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span><span class="boring">Cargo.toml
-</span>[profile.dev]
-panic = "abort"
+use crate::println;
 
-[profile.release]
-panic = "abort"
-<span class="boring">}</span></code></pre>
-<p>Это уменьшает размер исполняемого файла и устраняет зависимость от библиотек раскрутки стека.</p>
-<h2 id="переопределение-точки-входа"><a class="header" href="#переопределение-точки-входа">Переопределение точки входа</a></h2>
-<p>В обычной программе Rust выполнение начинается с функции <code>main</code>, которая вызывается средой выполнения. В системном программировании среда выполнения отсутствует, поэтому необходимо определить собственную точку входа:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span>#![no_main] // Отключаем стандартную точку входа
-
-<span class="boring">fn main() {
-</span>#[no_mangle] // Сохраняем имя функции для компоновщика
-pub extern "C" fn _start() -&gt; ! {
-    // Эта функция вызывается напрямую загрузчиком
-    // Она не должна возвращаться
-    loop {}
-}
-<span class="boring">}</span></code></pre>
-<p>Имя <code>_start</code> является соглашением, ожидаемым большинством загрузчиков и компоновщиков. Функция помечается как расходящаяся (<code>-&gt; !</code>), поскольку после её выполнения системе нечего делать — либо управление передаётся другим компонентам, либо система останавливается.</p>
-<h2 id="решение-проблем-компоновщика"><a class="header" href="#решение-проблем-компоновщика">Решение проблем компоновщика</a></h2>
-<p>При компиляции независимого исполняемого файла возникают ошибки компоновщика, поскольку он ожидает наличия стандартной среды выполнения C (crt0). Существует два основных подхода решения этой проблемы:</p>
-<h3 id="компиляция-для-голого-железа"><a class="header" href="#компиляция-для-голого-железа">Компиляция для "голого железа"</a></h3>
-<pre><code>cargo build --target thumbv7em-none-eabihf
-</code></pre>
-<p>Использование целевой платформы без операционной системы (с <code>none</code> в названии) указывает компоновщику не ожидать стандартных библиотек.</p>
-<h3 id="создание-кастомной-целевой-платформы"><a class="header" href="#создание-кастомной-целевой-платформы">Создание кастомной целевой платформы</a></h3>
-<p>Для x86_64 архитектуры создаётся файл <code>x86_64-unknown-none.json</code>:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>{
-  "llvm-target": "x86_64-unknown-none",
-  "data-layout": "e-m:e-i64:64-f80:128-n8:16:32:64-S128",
-  "arch": "x86_64",
-  "target-endian": "little",
-  "target-pointer-width": "64",
-  "target-c-int-width": "32",
-  "os": "none",
-  "executables": true,
-  "linker-flavor": "ld.lld",
-  "linker": "rust-lld",
-  "panic-strategy": "abort",
-  "disable-redzone": true,
-  "features": "-mmx,-sse,-sse2,-sse3,-ssse3,-sse4.1,-sse4.2,-3dnow,-3dnowa,-avx,-avx2"
-}
-<span class="boring">}</span></code></pre>
-<h2 id="минимальный-пример"><a class="header" href="#минимальный-пример">Минимальный пример</a></h2>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span>#![no_std]
-#![no_main]
-
-<span class="boring">fn main() {
-</span>use core::panic::PanicInfo;
-
-#[panic_handler]
-fn panic(_info: &amp;PanicInfo) -&gt; ! {
-    loop {}
+// Объявляем внешнюю ассемблерную функцию
+unsafe extern "C" {
+    fn add(a: i64, b: i64) -&gt; i64;
 }
 
-#[no_mangle]
-pub extern "C" fn _start() -&gt; ! {
-    // Это минимальный исполняемый файл
-    // На практике здесь будет инициализация
-    // и запуск основных компонентов системы
-    loop {}
+pub fn cpu_info() {
+    println!("Add: {}", unsafe {
+        add(1, 2)
+    });
 }
 <span class="boring">}</span></code></pre>
-<p>Соответствующий <code>Cargo.toml</code>:</p>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>[package]
-name = "kernel"
-version = "0.1.0"
-edition = "2021"
-
-[profile.dev]
-panic = "abort"
-
-[profile.release]
-panic = "abort"
-
-[dependencies]
-<span class="boring">Пока пусто, позже добавятся необходимые крейты
-</span><span class="boring">}</span></code></pre>
-<h2 id="значение-для-проекта-runix"><a class="header" href="#значение-для-проекта-runix">Значение для проекта Runix</a></h2>
-<p>Создание минимального исполняемого файла — первый и необходимый шаг для Runix. Он демонстрирует:</p>
+<p><strong>Что здесь происходит:</strong></p>
 <ol>
-<li>
-<p><strong>Независимость от ОС</strong>: Получен код, который может выполняться без поддержки существующей операционной системы.</p>
-</li>
-<li>
-<p><strong>Контроль над исполнением</strong>: Определена собственная точка входа, с которой начинается выполнение системы.</p>
-</li>
-<li>
-<p><strong>Минимальные зависимости</strong>: Устранены зависимости от стандартных библиотек и сред выполнения.</p>
-</li>
-<li>
-<p><strong>Фундамент для расширения</strong>: На этой основе можно строить более сложные компоненты: менеджер памяти, обработчики прерываний, драйверы устройств.
-Этот минимальный исполняемый файл, хотя и не делает ничего полезного сам по себе, служит доказательством концепции и основой, на которой будет построена вся остальная система. Каждый следующий компонент Runix будет добавляться к этому фундаменту, постепенно превращая бесконечный цикл в полнофункциональную операционную систему.</p>
+<li><code>extern "C"</code> — указывает, что функция использует соглашение о вызовах C</li>
+<li><code>unsafe</code> — необходим, так как вызываем код, который Rust не может проверить</li>
+<li><code>add(1, 2)</code> — вызываем ассемблерную функцию сложения</li>
+</ol>
+<h3 id="ассемблерная-реализация"><a class="header" href="#ассемблерная-реализация"><strong>Ассемблерная реализация</strong></a></h3>
+<pre><code class="language-nasm">; src/cpu/cpu_info.asm
+bits 64          ; 64-битный режим процессора
+global add       ; Экспортируем функцию для линковки
+
+section .text    ; Исполняемый сегмент кода
+add:
+    mov rax, rdi ; Первый аргумент (a) из RDI в RAX
+    add rax, rsi ; Прибавляем второй аргумент (b) из RSI
+    ret          ; Возвращаем результат в RAX
+</code></pre>
+<p><strong>Объяснение:</strong></p>
+<ol>
+<li><code>bits 64</code> — генерируем 64-битный код</li>
+<li><code>global add</code> — делаем функцию видимой для линковщика</li>
+<li><code>add:</code> — метка функции</li>
+<li>Согласно System V AMD64 ABI:
+<ul>
+<li>Первый аргумент передаётся в RDI</li>
+<li>Второй аргумент передаётся в RSI</li>
+<li>Результат возвращается в RAX</li>
+</ul>
 </li>
 </ol>
-<p>Следующий шаг — настройка компоновки для x86_64 архитектуры и добавление возможности вывода информации на экран, что позволит наблюдать за выполнением системы и отлаживать её по мере развития.</p>
-<p><a href="Building_Minimal_Rust_Kernel_Practical_Start_Runix.html">Создание минимального ядра на Rust Практический старт для Runix</a></p>
+<h2 id="сборка-проекта"><a class="header" href="#сборка-проекта"><strong>Сборка проекта</strong></a></h2>
+<h3 id="команды-сборки-вручную"><a class="header" href="#команды-сборки-вручную"><strong>Команды сборки вручную</strong></a></h3>
+<pre><code class="language-bash"># Компилируем ассемблерный код
+nasm -f elf64 src/cpu/cpu_info.asm -o cpu_info.o
+
+# Создаём статическую библиотеку
+ar rcs libasm.a cpu_info.o
+</code></pre>
+<h3 id="автоматизация-сборки-через-buildrs"><a class="header" href="#автоматизация-сборки-через-buildrs"><strong>Автоматизация сборки через build.rs</strong></a></h3>
+<pre class="playground"><code class="language-rust">// build.rs
+use std::env;
+use std::path::PathBuf;
+
+fn main() {
+    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+
+    // Копируем собранную библиотеку (предполагаем, что она уже собрана)
+    std::fs::copy("libasm.a", out_dir.join("libasm.a")).unwrap();
+
+    // Указываем линковщику где искать библиотеку
+    println!("cargo:rustc-link-search=native={}", out_dir.display());
+    println!("cargo:rustc-link-lib=static=asm");
+}</code></pre>
+<h2 id="как-это-работает-вместе"><a class="header" href="#как-это-работает-вместе"><strong>Как это работает вместе</strong></a></h2>
+<h3 id="процесс-сборки"><a class="header" href="#процесс-сборки"><strong>Процесс сборки:</strong></a></h3>
+<ol>
+<li>NASM компилирует <code>cpu_info.asm</code> в объектный файл <code>cpu_info.o</code></li>
+<li>AR создаёт статическую библиотеку <code>libasm.a</code></li>
+<li>build.rs копирует библиотеку в выходную директорию Cargo</li>
+<li>Rust линковщик подключает библиотеку к нашему ядру</li>
+<li>Rust код вызывает ассемблерную функцию через FFI</li>
+</ol>
+<h3 id="результат-выполнения"><a class="header" href="#результат-выполнения"><strong>Результат выполнения:</strong></a></h3>
+<p>При вызове <code>cpu_info()</code> будет выведено:
+<img src="media/add_asm.png" alt="core"></p>
+<h2 id="следующие-шаги"><a class="header" href="#следующие-шаги"><strong>Следующие шаги</strong></a></h2>
+<p>Это базовая интеграция ассемблера. В будущем мы:</p>
+<ol>
+<li>Добавим автоматическую сборку ассемблерного кода в build.rs</li>
+<li>Создадим реальные функции работы с процессором</li>
+<li>Реализуем переключение контекста для планировщика</li>
+<li>Добавим обработку прерываний</li>
+</ol>
+<p>Сейчас мы доказали, что можем вызывать ассемблерный код из Rust, что открывает путь к созданию полноценного планировщика задач.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="start.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="Creating_first_Runix_VGA_text_output_driver.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="Building_Minimal_Rust_Kernel_Practical_Start_Runix.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -336,13 +289,10 @@ panic = "abort"
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="start.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="Creating_first_Runix_VGA_text_output_driver.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="Building_Minimal_Rust_Kernel_Practical_Start_Runix.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
-                    </a>
             </nav>
 
         </div>
