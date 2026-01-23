@@ -20,7 +20,8 @@ linker = "ld.lld"
 [build]
 target = "x86_64-kernel.json"
 
-
+[build-dependencies]
+cc = "1"
 
 [unstable]
 build-std = ["core", "alloc", "compiler_builtins"]
