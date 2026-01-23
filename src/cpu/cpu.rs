@@ -8,7 +8,7 @@ fn add(a: i64, b: i64) -> i64;
 pub fn cpu_info(){
 
 
-    println!("Core: {}", unsafe {
+    println!("Add: {}", unsafe {
         add(1,2)
     });
 
