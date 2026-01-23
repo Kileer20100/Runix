@@ -7,6 +7,7 @@ pub mod experiments;
 pub mod memory;
 pub mod set_macros;
 pub mod task;
+pub mod cpu;
 
 extern crate alloc;
 
@@ -14,21 +15,25 @@ extern crate alloc;
 static ALLOCATOR: LockedHeap = LockedHeap::empty();
 
 use linked_list_allocator::LockedHeap;
-//use crate::drivers::vga::xd8000::{println, text::text_write};
 use core::panic::PanicInfo;
+
+use crate::cpu::cpu::cpu_info;
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
-    println_error!("\nRunix Error: {}", 0);
-    println_warn!("\n\tRunix Warn: {}", 1);
-    println!("\r{} v0.1.0", "Runix Kernel");
-    let mut couter = 0;
+    cpu_info();
+
+    //let mut couter = 0;
     loop {
+        unsafe {core::arch::asm!("hlt");}
+        
+        /*
         println!("\nTick: {}", couter);
         couter += 1;
         for _ in 0..1 {
             core::hint::spin_loop();
         }
+        */
     }
 }
 
