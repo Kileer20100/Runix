@@ -7,5 +7,5 @@
   - [Создание минимального ядра на Rust Практический старт для Runix](Building_Minimal_Rust_Kernel_Practical_Start_Runix.md)
 - [Драйвера](driver.md)
   - [Создание первого драйвера в Runix: VGA текстовая вывода](Creating_first_Runix_VGA_text_output_driver.md)
+  - [Создание первого кода на языке ASM](Creation_first_code_the_ASM_language.md)
   
-

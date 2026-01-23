@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "789809e37fa2f01d",
+        "id": "83b610fb313bca94",
         "type": "tabs",
         "children": [
           {
-            "id": "765b96c04027514a",
+            "id": "cd0ff6d6f089ccb1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Планировщик/Как операционные системы на самом деле переключают задачи.md",
+                "file": "ASM/Creation_first_code_the_ASM_language.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Как операционные системы на самом деле переключают задачи"
+              "title": "Creation_first_code_the_ASM_language"
             }
           }
         ]
@@ -44,7 +44,7 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "Файловий менеджер"
+              "title": "Files"
             }
           },
           {
@@ -174,24 +174,32 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Відкрити провідник файлів": false,
-      "graph:Граф": false,
-      "canvas:Створити нове полотно": false,
-      "daily-notes:Сьогоднішня нотатка": false,
-      "templates:Вставити шаблон": false,
-      "command-palette:Відкрити меню команд": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
       "bases:Create new base": false
     }
   },
-  "active": "765b96c04027514a",
+  "active": "cd0ff6d6f089ccb1",
   "lastOpenFiles": [
     "driver/Creating_first_Runix_VGA_text_output_driver.md",
-    "media/Minimum_working_core.png",
-    "об авторе/Creating_an_Operating_System_in_Rust.md",
-    "Warn.md",
-    "start/Creating_Minimal_Rust_Executable_for_Systems_Programming.md",
-    "callout.md",
     "start/Building_Minimal_Rust_Kernel_Practical_Start_Runix.md",
+    "start/Creating_Minimal_Rust_Executable_for_Systems_Programming.md",
+    "ASM/Creation_first_code_the_ASM_language.md",
+    "media/add_asm.png",
+    "media/core_3.png",
+    "об авторе/Creating_an_Operating_System_in_Rust.md",
+    "об авторе/About_the_author.md",
+    "Планировщик/Планировщик Вступление.md",
+    "ASM",
+    "Планировщик/Как операционные системы на самом деле переключают задачи.md",
+    "Warn.md",
+    "callout.md",
+    "Планировщик/Контекст задачи — полное состояние процесса выполнения.md",
+    "media/Minimum_working_core.png",
     "media (Копія)/scroll_up.mp4",
     "media (Копія)/first_line.mp4",
     "media (Копія)/clear_buffer.mp4",
@@ -202,7 +210,6 @@
     "().md",
     "media/first_line.mp4",
     "start/start.md",
-    "Планировщик/Планировщик Вступление.md",
     "media/Demonstration_color_macros.png",
     "media/clear_buffer.mp4",
     "media/scroll_up.mp4",
@@ -210,8 +217,6 @@
     "images",
     "driver/driver.md",
     "start",
-    "driver",
-    "об авторе/About_the_author.md",
     "my-book/book/favicon-de23e50b.svg",
     "my-book/book/favicon-8114d1fc.png",
     "my-book/src/vga_driver.md",
@@ -223,9 +228,6 @@
     "my-book/src/Создание минимального исполняемого файла на Rust для системного программирования.md",
     "SUMMARY.md",
     "Общее понятие/Атомарные операции.md",
-    "Планировщик/Как операционные системы на самом деле переключают задачи.md",
-    "Общее понятие/Общее понятие.md",
-    "Планировщик/Контекст задачи — полное состояние процесса выполнения.md",
     "Pasted image 20260116020538.png",
     "Pasted image 20260112215834.png"
   ]
