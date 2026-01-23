@@ -60,12 +60,12 @@
 
 Проект разделён на главы и подглавы, которые можно изучать последовательно:
 
-- **[Об Авторе](About_the_author.md)**
-- **[Введение](Creating_an_Operating_System_in_Rust.md)**
-- **[Начало](start.md)**
+- **[Об Авторе](https://kileer20100.github.io/Runix/About_the_author.html)**
+- **[Введение]([Creating_an_Operating_System_in_Rust.md](https://kileer20100.github.io/Runix/Creating_an_Operating_System_in_Rust.html))**
+- **[Начало]([start.md](https://kileer20100.github.io/Runix/start.html))**
   - Создание минимального исполняемого файла на Rust
   - Создание минимального ядра: Практический старт для Runix
-- **[Драйвера](driver.md)**
+- **[Драйвера](https://kileer20100.github.io/Runix/driver.html)**
   - Создание первого драйвера: VGA текстовая вывод
 
 > Каждая глава сопровождается пояснениями, кодом и примерами для запуска.
