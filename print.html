@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-5c4cdd07.js";
+            window.path_to_searchindex_js = "searchindex-ceb01208.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0e4afa91.js"></script>
+        <script src="toc-019780d5.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -440,9 +440,9 @@ panic = "abort"
 </li>
 </ol>
 <p>Следующий шаг — настройка компоновки для x86_64 архитектуры и добавление возможности вывода информации на экран, что позволит наблюдать за выполнением системы и отлаживать её по мере развития.</p>
-<p><a href="#создание-минимального-ядра-на-rust-практический-старт-для-runix-1">Создание минимального ядра на Rust Практический старт для Runix</a></p>
+<p><a href="#создание-минимального-ядра-на-rust-практический-старт-runix">Создание минимального ядра на Rust Практический старт для Runix</a></p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="создание-минимального-ядра-на-rust-практический-старт-для-runix-1"><a href="#создание-минимального-ядра-на-rust-практический-старт-для-runix-1" class="header">Создание минимального ядра на Rust Практический старт для Runix</a></h1>
+<h1 id="создание-минимального-ядра-на-rust-практический-старт-runix"><a href="#создание-минимального-ядра-на-rust-практический-старт-runix" class="header">Создание минимального ядра на Rust: практический старт Runix</a></h1>
 <h2 id="создание-минимального-ядра-на-rust-практический-старт-для-runix"><a class="header" href="#создание-минимального-ядра-на-rust-практический-старт-для-runix">Создание минимального ядра на Rust Практический старт для Runix</a></h2>
 <h2 id="введение-от-теории-к-практике"><a class="header" href="#введение-от-теории-к-практике"><strong>Введение: От теории к практике</strong></a></h2>
 <p>В предыдущих материалах мы обсуждали философию проекта Runix и создали минимальный независимый исполняемый файл. Теперь пришло время превратить эту основу в настоящее загружаемое ядро, способное взаимодействовать с пользователем. Наша цель — создать систему, которая при загрузке выводит на экран классическое "Hello World!".</p>
@@ -718,7 +718,7 @@ panic = "abort"
 <li><strong>Инструмент обучения</strong> — работающая система, которую можно исследовать и изменять</li>
 </ul>
 <p>В следующих материалах мы превратим эту простую демонстрацию в основу для настоящей операционной системы, добавляя слой за слоем, всегда понимая, как каждый компонент взаимодействует с целым.</p>
-<p><a href="#создание-первого-драйвера-в-runix-vga-текстовая-вывода-1">Создание первого драйвера в Runix VGA текстовая вывода</a></p>
+<p><a href="#создание-первого-драйвера-в-runix-vga-текстовый-вывод">Создание первого драйвера в Runix VGA текстовая вывода</a></p>
 <p><strong>Ключевые выводы:</strong></p>
 <ul>
 <li>Минимальное ядро — это достижимая цель даже для начинающих</li>
@@ -727,11 +727,1225 @@ panic = "abort"
 <li>Каждый следующий шаг строится на фундаменте предыдущих</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="драйвера-1"><a href="#драйвера-1" class="header">Драйвера</a></h1>
-<h2 id="драйвера"><a class="header" href="#драйвера">Драйвера</a></h2>
-<p><a href="#создание-первого-драйвера-в-runix-vga-текстовая-вывода-1">Создание первого драйвера в Runix: VGA текстовая вывода</a></p>
+<h1 id="ассемблер-и-низкий-уровень"><a href="#ассемблер-и-низкий-уровень" class="header">Ассемблер и низкий уровень</a></h1>
+<h2 id="ассемблер-и-rust-низкий-уровень-без-магии"><a class="header" href="#ассемблер-и-rust-низкий-уровень-без-магии">Ассемблер и Rust: низкий уровень без магии</a></h2>
+<p>Этот раздел посвящён ассемблеру как языку процессора и его связке с Rust.
+Материал подойдёт не только для Runix, но и для любого системного программирования,
+драйверов, bare-metal и low-level оптимизаций.</p>
+<h2 id="ассемблер-с-нуля"><a class="header" href="#ассемблер-с-нуля">Ассемблер с нуля</a></h2>
+<ul>
+<li><a href="ASM/ASM_1">Ассемблер с нуля: Язык процессора для всех</a></li>
+<li><a href="ASM/ASM_2">Адресация памяти: Как процессор находит данные</a></li>
+<li><a href="ASM/instructions_1">Ключевые инструкции x86_64 для системного программирования</a></li>
+</ul>
+<h2 id="ассемблер-на-практике"><a class="header" href="#ассемблер-на-практике">Ассемблер на практике</a></h2>
+<ul>
+<li><a href="ASM/Creation_first_code_the_ASM_language">Создание первого кода на языке ASM</a></li>
+</ul>
+<h2 id="ассемблер-и-rust"><a class="header" href="#ассемблер-и-rust">Ассемблер и Rust</a></h2>
+<ul>
+<li><a href="ASM/ASM_Rust_1">Ассемблер и Rust: Связь высокого и низкого уровня</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="создание-первого-драйвера-в-runix-vga-текстовая-вывода-1"><a href="#создание-первого-драйвера-в-runix-vga-текстовая-вывода-1" class="header">Создание первого драйвера в Runix: VGA текстовая вывода</a></h1>
+<h1 id="ассемблер-с-нуля-язык-процессора-для-всех"><a class="header" href="#ассемблер-с-нуля-язык-процессора-для-всех"><strong>Ассемблер с нуля: Язык процессора для всех</strong></a></h1>
+<h2 id="что-такое-ассемблер"><a class="header" href="#что-такое-ассемблер"><strong>Что такое ассемблер?</strong></a></h2>
+<p>Ассемблер — это язык, с которым ты разговариваешь <strong>не с компьютером через привычные абстракции</strong>, а напрямую с его сердцем — процессором.</p>
+<p>Если обычный язык программирования — это <strong>строительный план</strong>, то ассемблер — это <strong>инструкции для каждого кирпича</strong>.</p>
+<h3 id="представим-мир-по-уровням"><a class="header" href="#представим-мир-по-уровням"><strong>Представим мир по уровням</strong></a></h3>
+<ul>
+<li>
+<p><strong>Машинный код</strong>: <code>11001001 10101010</code><br>Это секретный шифр для процессора. Он понимает только такие комбинации 0 и 1. Человек тут бессилен — читать и писать напрямую почти невозможно.</p>
+</li>
+<li>
+<p><strong>Ассемблер</strong>: <code>mov rax, 42</code><br>Это язык для человека, понятный и точный. Каждая команда — шаг процессора: взять число, положить в регистр, сложить, переслать куда нужно. Ассемблер — это твой личный мост к железу.</p>
+</li>
+<li>
+<p><strong>Язык высокого уровня</strong>: <code>let x = 42;</code><br>Ты говоришь: «хочу, чтобы это число было в переменной». Компилятор сам решает, как разложить это на команды процессора. Это удобно, но ты теряешь контроль над тем, что реально делает процессор.</p>
+</li>
+</ul>
+<hr>
+<h3 id="живой-пример"><a class="header" href="#живой-пример"><strong>Живой пример</strong></a></h3>
+<p>Представь, что процессор — это мастер, который строит дом:</p>
+<ul>
+<li>
+<p>На высокоуровневом языке ты просто говоришь:</p>
+<blockquote>
+<p>«Построй дом с 2 этажами и балконом».<br>Мастер сам решает, в каком порядке класть кирпичи.</p>
+</blockquote>
+</li>
+<li>
+<p>На ассемблере ты говоришь:</p>
+<blockquote>
+<p>«Возьми кирпич №1, положи раствор, кирпич №2, кирпич №3…»<br>Здесь нет «приблизительно» — каждая команда <strong>выполняется точно так, как ты написал</strong>.</p>
+</blockquote>
+</li>
+<li>
+<p>Машинный код — это <strong>невидимые руки мастера</strong>, он просто делает:</p>
+<pre><code>11001001 10101010
+</code></pre>
+<p>Ты не знаешь, какой кирпич куда попадёт, но процессор всё выполняет мгновенно.</p>
+</li>
+</ul>
+<h2 id="1-регистры-процессора-внутренние-карманы"><a class="header" href="#1-регистры-процессора-внутренние-карманы"><strong>1. Регистры процессора: Внутренние карманы</strong></a></h2>
+<h3 id="что-такое-регистры"><a class="header" href="#что-такое-регистры"><strong>Что такое регистры?</strong></a></h3>
+<p>Регистры — это <strong>сверхбыстрые ячейки памяти внутри самого процессора</strong>. Представьте, что у процессора есть 16 карманов, куда он может моментально класть и доставать данные.</p>
+<h3 id="основные-регистры-x86_64"><a class="header" href="#основные-регистры-x86_64"><strong>Основные регистры x86_64:</strong></a></h3>
+<pre><code>ГЛАВНЫЕ КАРМАНЫ:
+- rax - Основной рабочий карман (результаты операций)
+- rbx - Вспомогательный карман (хранение данных)
+- rcx - Карман-счётчик (для циклов)
+- rdx - Дополнительный карман (расширяет rax)
+
+КАРМАНЫ ДЛЯ ПЕРЕДАЧИ ДАННЫХ:
+- rdi - Первый аргумент функции
+- rsi - Второй аргумент функции
+- r8, r9, r10, r11 - Третий, четвёртый и так далее
+
+КАРМАНЫ ДЛЯ СТЕКА:
+- rsp - Указывает на верхнюю тарелку в стопке
+- rbp - Указывает на дно текущей стопки тарелок
+
+ОСТАЛЬНЫЕ КАРМАНЫ:
+- r12, r13, r14, r15 - Дополнительные места для хранения
+</code></pre>
+<h3 id="как-работают-регистры"><a class="header" href="#как-работают-регистры"><strong>Как работают регистры:</strong></a></h3>
+<p>Каждый регистр — это 64 бита (8 байтов) быстрой памяти. Для сравнения: обращение к обычной памяти — как сходить в кладовку, а к регистру — как взять со стола.</p>
+<h2 id="2-простейшие-операции-с-регистрами"><a class="header" href="#2-простейшие-операции-с-регистрами"><strong>2. Простейшие операции с регистрами</strong></a></h2>
+<h3 id="пример-1-сложение-двух-чисел"><a class="header" href="#пример-1-сложение-двух-чисел"><strong>Пример 1: Сложение двух чисел</strong></a></h3>
+<pre><code class="language-nasm">; Загружаем числа в регистры
+mov rax, 10    ; Кладём 10 в карман rax
+mov rbx, 20    ; Кладём 20 в карман rbx
+
+; Складываем
+add rax, rbx   ; rax = rax + rbx = 10 + 20 = 30
+
+; Теперь в rax лежит 30
+</code></pre>
+<h3 id="пример-2-перемножение"><a class="header" href="#пример-2-перемножение"><strong>Пример 2: Перемножение</strong></a></h3>
+<pre><code class="language-nasm">mov rax, 5     ; Первое число
+mov rbx, 6     ; Второе число
+mul rbx        ; Умножаем rax на rbx, результат в rax
+; Теперь в rax лежит 30
+</code></pre>
+<h2 id="3-регистры-vs-память-скорость"><a class="header" href="#3-регистры-vs-память-скорость"><strong>3. Регистры vs Память: Скорость</strong></a></h2>
+<h3 id="иерархия-скорости"><a class="header" href="#иерархия-скорости"><strong>Иерархия скорости:</strong></a></h3>
+<pre><code>1. РЕГИСТРЫ (1 такт)          → Мгновенно, как мысль
+2. КЭШ L1 (3-4 такта)         → Как достать из кармана куртки
+3. КЭШ L2 (10 тактов)         → Как сходить в соседнюю комнату
+4. КЭШ L3 (30 тактов)         → Как сходить на другой этаж
+5. ОПЕРАТИВНАЯ ПАМЯТЬ (100+)  → Как сходить в магазин на улице
+6. ДИСК (миллионы тактов)     → Как съездить в другой город
+</code></pre>
+<h3 id="почему-регистры-быстрее"><a class="header" href="#почему-регистры-быстрее"><strong>Почему регистры быстрее:</strong></a></h3>
+<ol>
+<li><strong>На кристалле</strong> — физически встроены в процессор</li>
+<li><strong>Нет шин</strong> — не нужно передавать данные по проводам</li>
+<li><strong>Параллельный доступ</strong> — можно работать со многими сразу</li>
+</ol>
+<h3 id="пример-разницы"><a class="header" href="#пример-разницы"><strong>Пример разницы:</strong></a></h3>
+<pre><code class="language-nasm">; БЫСТРО: работа только с регистрами
+mov rax, rbx    ; 1 такт
+add rax, rcx    ; 1 такт
+; Итого: 2 такта
+
+; МЕДЛЕННО: работа с памятью
+mov rax, [адрес1] ; 100+ тактов (идём в память)
+add rax, [адрес2] ; ещё 100+ тактов
+; Итого: 200+ тактов
+</code></pre>
+<h2 id="4-соглашения-о-вызовах-как-функции-общаются"><a class="header" href="#4-соглашения-о-вызовах-как-функции-общаются"><strong>4. Соглашения о вызовах: Как функции общаются</strong></a></h2>
+<p>В ассемблере есть правила, как функции передают друг другу аргументы. Для Linux/macOS используется <strong>System V AMD64 ABI</strong>:</p>
+<h3 id="правила-передачи-аргументов"><a class="header" href="#правила-передачи-аргументов"><strong>Правила передачи аргументов:</strong></a></h3>
+<pre><code>ПЕРВЫЙ аргумент  → RDI
+ВТОРОЙ аргумент → RSI  
+ТРЕТИЙ аргумент  → RDX
+ЧЕТВЁРТЫЙ       → RCX
+ПЯТЫЙ           → R8
+ШЕСТОЙ          → R9
+Остальные       → в стек
+</code></pre>
+<h3 id="пример-функции-сложения"><a class="header" href="#пример-функции-сложения"><strong>Пример функции сложения:</strong></a></h3>
+<pre><code class="language-nasm">global add_numbers
+add_numbers:
+    ; RDI содержит первое число
+    ; RSI содержит второе число
+    mov rax, rdi    ; Копируем первое число в RAX
+    add rax, rsi    ; Прибавляем второе число
+    ret             ; Возвращаем результат в RAX
+</code></pre>
+<h3 id="как-это-работает-из-другой-программы"><a class="header" href="#как-это-работает-из-другой-программы"><strong>Как это работает из другой программы:</strong></a></h3>
+<pre><code class="language-nasm">; Подготовка аргументов
+mov rdi, 10    ; Первый аргумент = 10
+mov rsi, 20    ; Второй аргумент = 20
+
+; Вызов функции
+call add_numbers
+
+; Теперь в RAX лежит 30
+</code></pre>
+<h2 id="5-работа-с-памятью-доступ-к-данным"><a class="header" href="#5-работа-с-памятью-доступ-к-данным"><strong>5. Работа с памятью: Доступ к данным</strong></a></h2>
+<h3 id="синтаксис-доступа-к-памяти"><a class="header" href="#синтаксис-доступа-к-памяти"><strong>Синтаксис доступа к памяти:</strong></a></h3>
+<pre><code class="language-nasm">; Чтение из памяти
+mov rax, [адрес]    ; Прочитать 8 байтов по адресу в RAX
+
+; Запись в память  
+mov [адрес], rbx    ; Записать RBX по адресу
+
+; Работа с массивами
+mov rax, [массив + индекс*размер]
+</code></pre>
+<h3 id="пример-сумма-элементов-массива"><a class="header" href="#пример-сумма-элементов-массива"><strong>Пример: Сумма элементов массива</strong></a></h3>
+<pre><code class="language-nasm">global sum_array
+sum_array:
+    ; RDI = адрес массива
+    ; RSI = количество элементов
+    xor rax, rax     ; Обнуляем сумму (быстрее чем mov rax, 0)
+    test rsi, rsi    ; Проверяем, не пустой ли массив
+    jz .done         ; Если пустой, выходим
+    
+.loop:
+    add rax, [rdi]   ; Добавляем текущий элемент к сумме
+    add rdi, 8       ; Переходим к следующему элементу (8 байт для 64-битного)
+    dec rsi          ; Уменьшаем счётчик
+    jnz .loop        ; Если не ноль, продолжаем
+    
+.done:
+    ret
+</code></pre>
+<h2 id="6-стек-временное-хранилище"><a class="header" href="#6-стек-временное-хранилище"><strong>6. Стек: Временное хранилище</strong></a></h2>
+<h3 id="что-такое-стек"><a class="header" href="#что-такое-стек"><strong>Что такое стек?</strong></a></h3>
+<p>Стек — это область памяти, работающая по принципу <strong>"последним пришёл — первым ушёл"</strong> (LIFO). Как стопка тарелок.</p>
+<h3 id="основные-операции"><a class="header" href="#основные-операции"><strong>Основные операции:</strong></a></h3>
+<pre><code class="language-nasm">push rax   ; Положить RAX на вершину стека
+pop rbx    ; Снять значение с вершины стека в RBX
+
+; Эквивалентно:
+; push rax = sub rsp, 8 + mov [rsp], rax
+; pop rbx  = mov rbx, [rsp] + add rsp, 8
+</code></pre>
+<h3 id="пример-использования-стека-в-функции"><a class="header" href="#пример-использования-стека-в-функции"><strong>Пример использования стека в функции:</strong></a></h3>
+<pre><code class="language-nasm">global calculate
+calculate:
+    push rbp        ; Сохраняем старый RBP
+    mov rbp, rsp    ; Устанавливаем новый базовый указатель
+    
+    push rbx        ; Сохраняем RBX (он должен сохраняться)
+    push r12        ; Сохраняем R12
+    
+    ; ... тело функции ...
+    
+    pop r12         ; Восстанавливаем R12
+    pop rbx         ; Восстанавливаем RBX
+    
+    pop rbp         ; Восстанавливаем RBP
+    ret             ; Возвращаемся
+</code></pre>
+<h2 id="7-условные-переходы-и-циклы"><a class="header" href="#7-условные-переходы-и-циклы"><strong>7. Условные переходы и циклы</strong></a></h2>
+<h3 id="флаги-процессора"><a class="header" href="#флаги-процессора"><strong>Флаги процессора:</strong></a></h3>
+<p>Процессор хранит результаты сравнений в специальных флагах:</p>
+<ul>
+<li><strong>ZF (Zero Flag)</strong> — установлен, если результат равен нулю</li>
+<li><strong>CF (Carry Flag)</strong> — установлен, если было переполнение</li>
+<li><strong>SF (Sign Flag)</strong> — установлен, если результат отрицательный</li>
+</ul>
+<h3 id="инструкции-сравнения"><a class="header" href="#инструкции-сравнения"><strong>Инструкции сравнения:</strong></a></h3>
+<pre><code class="language-nasm">cmp rax, rbx    ; Сравнить RAX и RBX, установить флаги
+test rax, rax   ; Проверить RAX на ноль (быстрее чем cmp rax, 0)
+</code></pre>
+<h3 id="условные-переходы"><a class="header" href="#условные-переходы"><strong>Условные переходы:</strong></a></h3>
+<pre><code class="language-nasm">je  метка    ; Перейти если равны (ZF=1)
+jne метка    ; Перейти если не равны (ZF=0)
+jg  метка    ; Перейти если больше
+jl  метка    ; Перейти если меньше
+jge метка    ; Перейти если больше или равно
+jle метка    ; Перейти если меньше или равно
+</code></pre>
+<h3 id="пример-цикла"><a class="header" href="#пример-цикла"><strong>Пример цикла:</strong></a></h3>
+<pre><code class="language-nasm">mov rcx, 10      ; Счётчик цикла = 10
+mov rax, 0       ; Сумма = 0
+
+.loop_start:
+    add rax, rcx     ; Добавляем текущее значение
+    dec rcx          ; Уменьшаем счётчик
+    jnz .loop_start  ; Продолжаем, если не ноль
+    
+; Теперь в RAX сумма чисел от 1 до 10 = 55
+</code></pre>
+<h2 id="8-работа-с-устройствами-порты-ввода-вывода"><a class="header" href="#8-работа-с-устройствами-порты-ввода-вывода"><strong>8. Работа с устройствами: Порты ввода-вывода</strong></a></h2>
+<h3 id="порты-vs-память"><a class="header" href="#порты-vs-память"><strong>Порты vs Память:</strong></a></h3>
+<ul>
+<li><strong>Память</strong> — общее хранилище данных</li>
+<li><strong>Порты</strong> — специальные адреса для общения с устройствами</li>
+</ul>
+<h3 id="команды-работы-с-портами"><a class="header" href="#команды-работы-с-портами"><strong>Команды работы с портами:</strong></a></h3>
+<pre><code class="language-nasm">in al, dx     ; Прочитать байт из порта DX в AL
+out dx, al    ; Записать байт из AL в порт DX
+
+in ax, dx     ; Прочитать слово (16 бит)
+in eax, dx    ; Прочитать двойное слово (32 бита)
+</code></pre>
+<h3 id="пример-ждать-нажатия-клавиши"><a class="header" href="#пример-ждать-нажатия-клавиши"><strong>Пример: Ждать нажатия клавиши</strong></a></h3>
+<pre><code class="language-nasm">wait_for_key:
+    mov dx, 0x64        ; Порт статуса клавиатуры
+    in al, dx           ; Читаем статус
+    test al, 1          ; Проверяем бит "данные готовы"
+    jz wait_for_key     ; Если нет, ждём дальше
+    
+    mov dx, 0x60        ; Порт данных клавиатуры
+    in al, dx           ; Читаем код клавиши
+    ; Теперь в AL лежит код нажатой клавиши
+</code></pre>
+<h2 id="9-оптимизация-лучшие-практики"><a class="header" href="#9-оптимизация-лучшие-практики"><strong>9. Оптимизация: Лучшие практики</strong></a></h2>
+<h3 id="1-используйте-короткие-формы"><a class="header" href="#1-используйте-короткие-формы"><strong>1. Используйте короткие формы:</strong></a></h3>
+<pre><code class="language-nasm">; Вместо:
+mov rax, 0
+; Пишите:
+xor rax, rax    ; Быстрее и короче
+
+; Вместо:
+cmp rax, 0
+; Пишите:
+test rax, rax   ; Быстрее
+</code></pre>
+<h3 id="2-избегайте-лишних-обращений-к-памяти"><a class="header" href="#2-избегайте-лишних-обращений-к-памяти"><strong>2. Избегайте лишних обращений к памяти:</strong></a></h3>
+<pre><code class="language-nasm">; ПЛОХО:
+mov rax, [mem1]
+add rax, [mem2]
+mov [mem3], rax
+
+; ХОРОШО:
+mov rax, [mem1]
+add rax, [mem2]
+; ... делаем ещё что-то с rax ...
+mov [mem3], rax
+</code></pre>
+<h3 id="3-используйте-подходящие-регистры"><a class="header" href="#3-используйте-подходящие-регистры"><strong>3. Используйте подходящие регистры:</strong></a></h3>
+<pre><code class="language-nasm">; Для счётчиков циклов — RCX
+mov rcx, 100
+loop_start:
+    ; ...
+    loop loop_start    ; Автоматически уменьшает RCX и прыгает
+    
+; Для умножения/деления — RAX, RDX
+mov rax, число
+mul множитель         ; Результат в RDX:RAX
+</code></pre>
+<h2 id="10-отладка-и-поиск-ошибок"><a class="header" href="#10-отладка-и-поиск-ошибок"><strong>10. Отладка и поиск ошибок</strong></a></h2>
+<h3 id="частые-ошибки"><a class="header" href="#частые-ошибки"><strong>Частые ошибки:</strong></a></h3>
+<ol>
+<li><strong>Забыли сохранить регистры:</strong></li>
+</ol>
+<pre><code class="language-nasm">; ОШИБКА:
+my_function:
+    mov rbx, важное_значение
+    ; ... используем rbx ...
+    ret  ; rbx изменился!
+    
+; ПРАВИЛЬНО:
+my_function:
+    push rbx          ; Сохраняем
+    ; ... используем rbx ...
+    pop rbx           ; Восстанавливаем
+    ret
+</code></pre>
+<ol start="2">
+<li><strong>Путаница с размерами:</strong></li>
+</ol>
+<pre><code class="language-nasm">mov rax, [массив]     ; Читает 8 байтов
+mov eax, [массив]     ; Читает 4 байта
+mov ax, [массив]      ; Читает 2 байта
+mov al, [массив]      ; Читает 1 байт
+</code></pre>
+<ol start="3">
+<li><strong>Неверные адреса:</strong></li>
+</ol>
+<pre><code class="language-nasm">; ОШИБКА: забыли квадратные скобки
+mov rax, адрес      ; Загружает САМ АДРЕС в RAX
+mov rax, [адрес]    ; Загружает ДАННЫЕ ПО АДРЕСУ в RAX
+</code></pre>
+<h2 id="11-пример-полной-программы-на-nasm"><a class="header" href="#11-пример-полной-программы-на-nasm"><strong>11. Пример полной программы на NASM</strong></a></h2>
+<h3 id="программа-вычисление-факториала"><a class="header" href="#программа-вычисление-факториала"><strong>Программа: Вычисление факториала</strong></a></h3>
+<pre><code class="language-nasm">section .data
+    result_msg db "Factorial: ", 0
+    newline db 10, 0
+
+section .bss
+    buffer resb 20    ; Буфер для вывода числа
+
+section .text
+    global _start
+
+; Функция вычисления факториала
+; Вход: RDI = число
+; Выход: RAX = факториал
+factorial:
+    cmp rdi, 1
+    jle .base_case
+    push rdi
+    dec rdi
+    call factorial
+    pop rdi
+    mul rdi
+    ret
+.base_case:
+    mov rax, 1
+    ret
+
+; Точка входа
+_start:
+    mov rdi, 5        ; Вычисляем 5!
+    call factorial
+    
+    ; Теперь в RAX лежит 120 (5! = 120)
+    
+    ; Завершаем программу
+    mov rax, 60       ; Системный вызов exit
+    xor rdi, rdi      ; Код выхода 0
+    syscall
+</code></pre>
+<h2 id="12-зачем-всё-это-нужно"><a class="header" href="#12-зачем-всё-это-нужно"><strong>12. Зачем всё это нужно?</strong></a></h2>
+<h3 id="когда-использовать-ассемблер"><a class="header" href="#когда-использовать-ассемблер"><strong>Когда использовать ассемблер:</strong></a></h3>
+<ol>
+<li><strong>Разработка операционных систем</strong> — прямое управление железом</li>
+<li><strong>Драйверы устройств</strong> — общение с конкретным оборудованием</li>
+<li><strong>Критичные к производительности участки</strong> — игры, шифрование, компрессия</li>
+<li><strong>Встраиваемые системы</strong> — микроконтроллеры с ограниченными ресурсами</li>
+<li><strong>Обратное проектирование</strong> — анализ чужого кода</li>
+<li><strong>Обучение</strong> — понимание, как работает компьютер на самом деле</li>
+</ol>
+<h3 id="когда-не-использовать-ассемблер"><a class="header" href="#когда-не-использовать-ассемблер"><strong>Когда НЕ использовать ассемблер:</strong></a></h3>
+<ol>
+<li><strong>Обычные приложения</strong> — современные компиляторы пишут код лучше людей</li>
+<li><strong>Веб-разработка</strong> — бессмысленно</li>
+<li><strong>Быстрая разработка прототипов</strong> — слишком медленно</li>
+<li><strong>Кроссплатформенные проекты</strong> — код для x86 не работает на ARM</li>
+</ol>
+<h2 id="заключение-ассемблер--это-сила"><a class="header" href="#заключение-ассемблер--это-сила"><strong>Заключение: Ассемблер — это сила</strong></a></h2>
+<p>Ассемблер даёт вам <strong>полный контроль над компьютером</strong>. Вы становитесь архитектором, который напрямую общается с процессором, памятью и устройствами.</p>
+<p><strong>Что дальше?</strong></p>
+<ol>
+<li><strong>Практика</strong> — пишите маленькие программы, разбирайте их по шагам</li>
+<li><strong>Изучайте системные вызовы</strong> — как программы общаются с ОС</li>
+<li><strong>Смотрите код компиляторов</strong> — как высокоуровневые языки превращаются в ассемблер</li>
+<li><strong>Экспериментируйте</strong> — пробуйте разные оптимизации, смотрите на скорость</li>
+</ol>
+<p>Помните: <strong>каждая программа, которую вы запускаете, в конечном итоге становится ассемблером</strong>. Теперь вы знаете, что происходит под капотом.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="адресация-памяти-как-процессор-находит-данные-1"><a href="#адресация-памяти-как-процессор-находит-данные-1" class="header">Адресация памяти: Как процессор находит данные</a></h1>
+<h2 id="адресация-памяти-как-процессор-находит-данные"><a class="header" href="#адресация-памяти-как-процессор-находит-данные"><strong>Адресация памяти: Как процессор находит данные</strong></a></h2>
+<p>В ассемблере регистры — это быстрые карманы, а память — огромный склад. Чтобы процессор достал данные, нужно указать, откуда именно их брать. Существуют несколько способов адресации: <strong>прямая</strong>, <strong>косвенная</strong>, <strong>со смещением</strong> и <strong>с индексом</strong>.</p>
+<h3 id="11-прямая-адресация"><a class="header" href="#11-прямая-адресация"><strong>1.1 Прямая адресация</strong></a></h3>
+<p>Прямая адресация — это когда процессору говорят: «Возьми данные по конкретному адресу».</p>
+<pre><code class="language-nasm">mov rax, [0x601040] ; Считать 8 байт из адреса 0x601040
+</code></pre>
+<p>Здесь <code>[0x601040]</code> — конкретный адрес в памяти, а регистр <code>RAX</code> теперь содержит данные по этому адресу.<br><strong>Аналогия:</strong> представьте шкаф с ячейками, у каждой есть номер. Вы берёте конкретную ячейку — это прямая адресация.</p>
+<h3 id="12-косвенная-адресация"><a class="header" href="#12-косвенная-адресация"><strong>1.2 Косвенная адресация</strong></a></h3>
+<p>Косвенная адресация использует регистр как указатель. Вместо прямого адреса мы говорим: «Возьми данные по адресу, который хранится в регистре».</p>
+<pre><code class="language-nasm">mov rax, [rdi]  ; rdi хранит адрес массива
+</code></pre>
+<p>Если <code>rdi = 0x601040</code>, это эквивалентно <code>mov rax, [0x601040]</code>. Такой способ удобен, когда адрес динамический.<br><strong>Аналогия:</strong> у вас в руках конверт с номером ячейки на складе. Сначала смотрите в конверт, а затем идёте за ячейкой.</p>
+<h3 id="13-адресация-со-смещением"><a class="header" href="#13-адресация-со-смещением"><strong>1.3 Адресация со смещением</strong></a></h3>
+<p>Адресация со смещением нужна, когда обращаемся к элементам массива:</p>
+<pre><code class="language-nasm">mov rax, [rdi + 8]   ; Берём следующий элемент (64-битный = 8 байт)
+mov rax, [rdi + 16]  ; Ещё один элемент дальше
+</code></pre>
+<p><code>[rdi + 8]</code> → адрес в <code>rdi</code> + 8 байт, <code>[rdi + 16]</code> → адрес в <code>rdi</code> + 16 байт.<br><strong>Аналогия:</strong> у вас есть ряд ячеек на складе. Смещение говорит: «сдвинься на 1 шаг вперёд».</p>
+<h3 id="14-адресация-с-индексом"><a class="header" href="#14-адресация-с-индексом"><strong>1.4 Адресация с индексом</strong></a></h3>
+<p>Адресация с индексом позволяет гибко работать с массивами, используя регистр как индекс:</p>
+<pre><code class="language-nasm">mov rax, [rdi + rcx*8]  ; rdi = адрес массива, rcx = индекс элемента
+</code></pre>
+<p>Здесь <code>rcx*8</code> умножает индекс на размер элемента (8 байт для 64-битного числа). Теперь <code>RAX</code> содержит данные элемента с номером <code>RCX</code>.</p>
+<p><strong>Пример:</strong></p>
+<pre><code class="language-nasm">; rdi = адрес массива
+mov rcx, 2          ; хотим третий элемент (индекс 2)
+mov rax, [rdi + rcx*8]
+</code></pre>
+<p><strong>Аналогия:</strong> стоя у начала ряда ячеек на складе, вы считаете: «прыгну на 2 ячейки вправо — беру третий объект».</p>
+<h3 id="15-сводная-таблица-адресации"><a class="header" href="#15-сводная-таблица-адресации"><strong>1.5 Сводная таблица адресации</strong></a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Тип адресации</th><th>Пример</th><th>Комментарий</th></tr>
+</thead>
+<tbody>
+<tr><td>Прямая</td><td><code>[0x601040]</code></td><td>Конкретный адрес</td></tr>
+<tr><td>Косвенная</td><td><code>[rdi]</code></td><td>Адрес в регистре</td></tr>
+<tr><td>Со смещением</td><td><code>[rdi+8]</code></td><td>Следующий элемент массива</td></tr>
+<tr><td>С индексом</td><td><code>[rdi+rcx*8]</code></td><td>Элемент массива с индексом RCX</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="16-практика-суммирование-массива"><a class="header" href="#16-практика-суммирование-массива"><strong>1.6 Практика: Суммирование массива</strong></a></h3>
+<pre><code class="language-nasm">global sum_array
+sum_array:
+    xor rax, rax      ; сумма = 0
+    xor rcx, rcx      ; индекс = 0
+    test rsi, rsi
+    jz .done
+
+.loop:
+    add rax, [rdi + rcx*8] ; прибавляем элемент по индексу
+    inc rcx
+    dec rsi
+    jnz .loop
+
+.done:
+    ret
+</code></pre>
+<ul>
+<li>
+<p><strong>RDI</strong> → адрес массива</p>
+</li>
+<li>
+<p><strong>RSI</strong> → количество элементов</p>
+</li>
+<li>
+<p><strong>RCX</strong> → индекс текущего элемента</p>
+</li>
+<li>
+<p><strong>RAX</strong> → сумма элементов</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ключевые-инструкции-x86_64-для-системного-программирования"><a class="header" href="#ключевые-инструкции-x86_64-для-системного-программирования"><strong>Ключевые инструкции x86_64 для системного программирования</strong></a></h1>
+<h2 id="1-перемещение-данных"><a class="header" href="#1-перемещение-данных"><strong>1. Перемещение данных</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><code>mov</code></td><td>Копирует данные из источника в назначение</td><td><code>mov rax, rbx</code> – копирует значение RBX в RAX</td></tr>
+<tr><td><code>lea</code></td><td>Загружает адрес в регистр, не данные</td><td><code>lea rax, [rdi+rcx*8]</code> – адрес элемента массива</td></tr>
+<tr><td><code>movzx</code></td><td>Расширяет маленькое значение в больший регистр с заполнением нулями</td><td><code>movzx rax, byte [rdi]</code></td></tr>
+<tr><td><code>movsx</code></td><td>Расширяет маленькое значение с сохранением знака</td><td><code>movsx rax, byte [rdi]</code></td></tr>
+<tr><td><code>push</code></td><td>Кладёт значение на вершину стека</td><td><code>push rax</code></td></tr>
+<tr><td><code>pop</code></td><td>Снимает значение со стека</td><td><code>pop rbx</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="2-арифметика-и-логика"><a class="header" href="#2-арифметика-и-логика"><strong>2. Арифметика и логика</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><code>add</code></td><td>Сложение</td><td><code>add rax, rbx</code></td></tr>
+<tr><td><code>sub</code></td><td>Вычитание</td><td><code>sub rax, 5</code></td></tr>
+<tr><td><code>inc</code></td><td>Увеличение на 1</td><td><code>inc rcx</code></td></tr>
+<tr><td><code>dec</code></td><td>Уменьшение на 1</td><td><code>dec rcx</code></td></tr>
+<tr><td><code>mul</code></td><td>Умножение (без знака)</td><td><code>mul rbx</code> – RAX = RAX * RBX</td></tr>
+<tr><td><code>imul</code></td><td>Умножение со знаком</td><td><code>imul rbx</code></td></tr>
+<tr><td><code>div</code></td><td>Деление (без знака)</td><td><code>div rbx</code> – RAX/RDX делится на RBX</td></tr>
+<tr><td><code>idiv</code></td><td>Деление со знаком</td><td><code>idiv rbx</code></td></tr>
+<tr><td><code>xor</code></td><td>Логическое XOR</td><td><code>xor rax, rax</code> – часто для обнуления регистра</td></tr>
+<tr><td><code>and</code></td><td>Логическое AND</td><td><code>and rax, 0xFF</code></td></tr>
+<tr><td><code>or</code></td><td>Логическое OR</td><td><code>or rax, rbx</code></td></tr>
+<tr><td><code>not</code></td><td>Побитовое отрицание</td><td><code>not rax</code></td></tr>
+<tr><td><code>shl</code></td><td>Сдвиг влево</td><td><code>shl rax, 1</code> – умножение на 2</td></tr>
+<tr><td><code>shr</code></td><td>Сдвиг вправо</td><td><code>shr rax, 1</code> – деление на 2 без знака</td></tr>
+<tr><td><code>sar</code></td><td>Арифметический сдвиг вправо (со знаком)</td><td><code>sar rax, 1</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="3-сравнения-и-условные-переходы"><a class="header" href="#3-сравнения-и-условные-переходы"><strong>3. Сравнения и условные переходы</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><code>cmp</code></td><td>Сравнение двух значений, результат в флагах</td><td><code>cmp rax, rbx</code></td></tr>
+<tr><td><code>test</code></td><td>Логическое И для установки флагов</td><td><code>test rax, rax</code> – проверка на ноль</td></tr>
+<tr><td><code>je/jz</code></td><td>Перейти, если равны / ноль</td><td><code>je .label</code></td></tr>
+<tr><td><code>jne/jnz</code></td><td>Перейти, если не равны / не ноль</td><td><code>jne .label</code></td></tr>
+<tr><td><code>jg/jnle</code></td><td>Перейти если больше (со знаком)</td><td><code>jg .label</code></td></tr>
+<tr><td><code>jl/jnge</code></td><td>Перейти если меньше (со знаком)</td><td><code>jl .label</code></td></tr>
+<tr><td><code>jge/jnl</code></td><td>Перейти если больше или равно</td><td><code>jge .label</code></td></tr>
+<tr><td><code>jle/jng</code></td><td>Перейти если меньше или равно</td><td><code>jle .label</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="4-циклы-и-работа-с-rcx"><a class="header" href="#4-циклы-и-работа-с-rcx"><strong>4. Циклы и работа с RCX</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><code>loop</code></td><td>Уменьшает RCX и прыгает, если не ноль</td><td><code>loop .loop_start</code></td></tr>
+<tr><td><code>jecxz</code></td><td>Прыжок, если RCX = 0</td><td><code>jecxz .end_loop</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="5-вызовы-функций-и-возврат"><a class="header" href="#5-вызовы-функций-и-возврат"><strong>5. Вызовы функций и возврат</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><code>call</code></td><td>Вызов функции</td><td><code>call my_function</code></td></tr>
+<tr><td><code>ret</code></td><td>Возврат из функции</td><td><code>ret</code></td></tr>
+<tr><td><code>enter</code></td><td>Установка нового кадра стека</td><td><code>enter 16,0</code></td></tr>
+<tr><td><code>leave</code></td><td>Снятие кадра стека</td><td><code>leave</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="6-стек-и-регистры-rbprsp"><a class="header" href="#6-стек-и-регистры-rbprsp"><strong>6. Стек и регистры RBP/RSP</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><code>push</code></td><td>Сохраняет регистр на стек</td><td><code>push rbx</code></td></tr>
+<tr><td><code>pop</code></td><td>Восстанавливает регистр из стека</td><td><code>pop rbx</code></td></tr>
+<tr><td><code>mov rbp, rsp</code></td><td>Создаёт базовую точку для локальных переменных</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Пример сохранения контекста функции:</strong></p>
+<pre><code class="language-nasm">push rbp
+mov rbp, rsp
+push rbx
+; ... тело функции ...
+pop rbx
+pop rbp
+ret
+</code></pre>
+<hr>
+<h2 id="7-работа-с-памятью"><a class="header" href="#7-работа-с-памятью"><strong>7. Работа с памятью</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><code>mov rax, [rdi]</code></td><td>Чтение 8 байт из памяти</td><td><code>[rdi]</code> — косвенная адресация</td></tr>
+<tr><td><code>mov [rdi], rax</code></td><td>Запись 8 байт в память</td><td></td></tr>
+<tr><td><code>mov rax, [rdi + 8]</code></td><td>Сдвиг на 1 элемент (64-бит)</td><td></td></tr>
+<tr><td><code>mov rax, [rdi + rcx*8]</code></td><td>Индексная адресация массива</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="8-системные-инструкции-и-io"><a class="header" href="#8-системные-инструкции-и-io"><strong>8. Системные инструкции и I/O</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><code>in al, dx</code></td><td>Чтение байта с порта DX в AL</td><td><code>in al, 0x60</code></td></tr>
+<tr><td><code>out dx, al</code></td><td>Запись байта из AL в порт DX</td><td><code>out 0x60, al</code></td></tr>
+<tr><td><code>hlt</code></td><td>Остановка процессора до следующего прерывания</td><td><code>hlt</code></td></tr>
+<tr><td><code>cli</code></td><td>Запрет прерываний</td><td><code>cli</code></td></tr>
+<tr><td><code>sti</code></td><td>Разрешение прерываний</td><td><code>sti</code></td></tr>
+<tr><td><code>syscall</code></td><td>Вызов системного вызова (Linux)</td><td><code>mov rax,60 ; xor rdi,rdi ; syscall</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="9-работа-со-строковыми-данными"><a class="header" href="#9-работа-со-строковыми-данными"><strong>9. Работа со строковыми данными</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><code>movsb</code></td><td>Копирует байт из [RSI] в [RDI], увеличивает RSI и RDI</td><td><code>rep movsb</code> — копирует строку</td></tr>
+<tr><td><code>movsw</code></td><td>Копирует слово (2 байта)</td><td><code>rep movsw</code></td></tr>
+<tr><td><code>movsd</code></td><td>Копирует двойное слово (4 байта)</td><td><code>rep movsd</code> — эффективное копирование памяти</td></tr>
+<tr><td><code>movsq</code></td><td>Копирует учетверённое слово (8 байт)</td><td><code>rep movsq</code></td></tr>
+<tr><td><code>cmpsb</code></td><td>Сравнивает байты [RSI] и [RDI]</td><td><code>repe cmpsb</code> — сравнение строк</td></tr>
+<tr><td><code>stosb</code></td><td>Сохраняет AL в [RDI], увеличивает RDI</td><td><code>rep stosb</code> — заполнение памяти значением</td></tr>
+<tr><td><code>lodsb</code></td><td>Загружает байт из [RSI] в AL, увеличивает RSI</td><td><code>lodsb</code></td></tr>
+<tr><td><code>scasb</code></td><td>Сравнивает AL с байтом [RDI]</td><td><code>repne scasb</code> — поиск символа в строке</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="пример-использования-строковых-инструкций"><a class="header" href="#пример-использования-строковых-инструкций"><strong>Пример использования строковых инструкций:</strong></a></h3>
+<pre><code class="language-nasm">; Копирование блока памяти (16 байт)
+mov rsi, source    ; Источник
+mov rdi, dest      ; Назначение
+mov rcx, 2         ; Количество 8-байтных блоков (16/8 = 2)
+rep movsq          ; Копируем 2 раза по 8 байт
+
+; Заполнение буфера нулями
+mov rdi, buffer
+mov rcx, 1024      ; Размер в байтах
+mov al, 0
+rep stosb          ; Заполняем 1024 байта нулями
+</code></pre>
+<h2 id="10-привилегированные-инструкции-для-ядра-ос"><a class="header" href="#10-привилегированные-инструкции-для-ядра-ос"><strong>10. Привилегированные инструкции для ядра ОС</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Когда используется</th></tr>
+</thead>
+<tbody>
+<tr><td><code>lgdt</code></td><td>Загружает Global Descriptor Table</td><td>При инициализации ядра</td></tr>
+<tr><td><code>lidt</code></td><td>Загружает Interrupt Descriptor Table</td><td>Настройка обработчиков прерываний</td></tr>
+<tr><td><code>ltr</code></td><td>Загружает Task Register</td><td>При переключении задач</td></tr>
+<tr><td><code>lcr0</code>, <code>lcr3</code>, <code>lcr4</code></td><td>Загрузка в контрольные регистры</td><td>Настройка режимов процессора</td></tr>
+<tr><td><code>mov crN, reg</code></td><td>Запись в контрольный регистр</td><td></td></tr>
+<tr><td><code>mov reg, crN</code></td><td>Чтение из контрольного регистра</td><td></td></tr>
+<tr><td><code>invd</code></td><td>Инвалидация кэша (без записи)</td><td>При изменении страничных таблиц</td></tr>
+<tr><td><code>wbinvd</code></td><td>Инвалидация кэша (с записью)</td><td></td></tr>
+<tr><td><code>cpuid</code></td><td>Получение информации о процессоре</td><td>Определение возможностей CPU</td></tr>
+<tr><td><code>rdtsc</code></td><td>Чтение счётчика тактов</td><td>Для замеров производительности</td></tr>
+<tr><td><code>rdpmc</code></td><td>Чтение счётчиков производительности</td><td>Профилирование</td></tr>
+<tr><td><code>wrmsr</code></td><td>Запись в Model-Specific Register</td><td>Настройка процессора</td></tr>
+<tr><td><code>rdmsr</code></td><td>Чтение из Model-Specific Register</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="пример-работы-с-msr-model-specific-registers"><a class="header" href="#пример-работы-с-msr-model-specific-registers"><strong>Пример работы с MSR (Model-Specific Registers):</strong></a></h3>
+<pre><code class="language-nasm">; Включение SSE (Streaming SIMD Extensions)
+mov ecx, 0xC0010015 ; MSR для включения SSE
+rdmsr               ; Читаем текущее значение
+or eax, 3           ; Устанавливаем биты SSE
+wrmsr               ; Записываем обратно
+
+; Получение информации о процессоре
+mov eax, 1          ; Функция 1 CPUID
+cpuid
+test edx, 1 &lt;&lt; 25   ; Проверяем бит SSE
+jnz sse_available
+</code></pre>
+<h2 id="11-simd-инструкции-mmxsseavx"><a class="header" href="#11-simd-инструкции-mmxsseavx"><strong>11. SIMD инструкции (MMX/SSE/AVX)</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Категория</th><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>MMX</strong></td><td><code>paddb</code>, <code>paddw</code>, <code>paddd</code>, <code>paddq</code></td><td>Параллельное сложение</td><td><code>paddd mm0, mm1</code></td></tr>
+<tr><td></td><td><code>psubb</code>, <code>psubw</code>, <code>psubd</code>, <code>psubq</code></td><td>Параллельное вычитание</td><td></td></tr>
+<tr><td><strong>SSE</strong></td><td><code>addps</code>, <code>addss</code></td><td>Сложение float (packed/scalar)</td><td><code>addps xmm0, xmm1</code></td></tr>
+<tr><td></td><td><code>subps</code>, <code>subss</code></td><td>Вычитание float</td><td></td></tr>
+<tr><td></td><td><code>mulps</code>, <code>mulss</code></td><td>Умножение float</td><td></td></tr>
+<tr><td></td><td><code>divps</code>, <code>divss</code></td><td>Деление float</td><td></td></tr>
+<tr><td></td><td><code>sqrtps</code>, <code>sqrtss</code></td><td>Квадратный корень</td><td></td></tr>
+<tr><td></td><td><code>movaps</code>, <code>movups</code></td><td>Перемещение выровненное/невыровненное</td><td></td></tr>
+<tr><td><strong>AVX</strong></td><td><code>vaddps</code>, <code>vsubps</code></td><td>256-битные векторные операции</td><td><code>vaddps ymm0, ymm1, ymm2</code></td></tr>
+<tr><td></td><td><code>vmulps</code>, <code>vdivps</code></td><td></td><td></td></tr>
+<tr><td></td><td><code>vsqrtps</code></td><td></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="пример-simd-вычислений"><a class="header" href="#пример-simd-вычислений"><strong>Пример SIMD вычислений:</strong></a></h3>
+<pre><code class="language-nasm">; Умножение 4 чисел с плавающей точкой одновременно
+movaps xmm0, [array1]   ; Загружаем 4 float (16 байт)
+movaps xmm1, [array2]   ; Ещё 4 float
+mulps xmm0, xmm1        ; Перемножаем все 4 пары одновременно
+movaps [result], xmm0   ; Сохраняем 4 результата
+</code></pre>
+<h2 id="12-атомарные-операции-для-многопоточности"><a class="header" href="#12-атомарные-операции-для-многопоточности"><strong>12. Атомарные операции (для многопоточности)</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Использование</th></tr>
+</thead>
+<tbody>
+<tr><td><code>lock xadd</code></td><td>Атомарное сложение с возвратом старого значения</td><td>Счётчики, спинлоки</td></tr>
+<tr><td><code>lock cmpxchg</code></td><td>Сравнить и обменять (CAS)</td><td>Основная примитивная операция</td></tr>
+<tr><td><code>lock inc</code></td><td>Атомарное увеличение</td><td></td></tr>
+<tr><td><code>lock dec</code></td><td>Атомарное уменьшение</td><td></td></tr>
+<tr><td><code>lock or</code></td><td>Атомарное ИЛИ</td><td></td></tr>
+<tr><td><code>lock and</code></td><td>Атомарное И</td><td></td></tr>
+<tr><td><code>mfence</code></td><td>Барьер памяти полного упорядочения</td><td></td></tr>
+<tr><td><code>sfence</code></td><td>Барьер для операций записи</td><td></td></tr>
+<tr><td><code>lfence</code></td><td>Барьер для операций чтения</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="пример-атомарных-операций"><a class="header" href="#пример-атомарных-операций"><strong>Пример атомарных операций:</strong></a></h3>
+<pre><code class="language-nasm">; Атомарный инкремент счётчика
+lock inc qword [counter]
+
+; Сравнение с обменом (Compare-And-Swap)
+; if (*ptr == old) { *ptr = new; return true; } else { return false; }
+mov rax, old_value
+mov rdx, new_value
+lock cmpxchg [ptr], rdx
+; ZF=1 если обмен произошёл
+</code></pre>
+<h2 id="13-инструкции-для-виртуальной-памяти"><a class="header" href="#13-инструкции-для-виртуальной-памяти"><strong>13. Инструкции для виртуальной памяти</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Использование в ядре</th></tr>
+</thead>
+<tbody>
+<tr><td><code>invlpg</code></td><td>Инвалидация TLB для одной страницы</td><td>При изменении отображения страницы</td></tr>
+<tr><td><code>invpcid</code></td><td>Инвалидация TLB с указанием PCID</td><td>В современных процессорах</td></tr>
+<tr><td><code>clflush</code></td><td>Сброс кэш-линии</td><td></td></tr>
+<tr><td><code>clflushopt</code></td><td>Оптимизированный сброс кэш-линии</td><td></td></tr>
+<tr><td><code>prefetch</code></td><td>Предварительная загрузка в кэш</td><td>Оптимизация доступа к памяти</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="14-отладочные-инструкции"><a class="header" href="#14-отладочные-инструкции"><strong>14. Отладочные инструкции</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Использование</th></tr>
+</thead>
+<tbody>
+<tr><td><code>int3</code></td><td>Программное прерывание для отладчика</td><td>Точки останова</td></tr>
+<tr><td><code>ud2</code></td><td>Неопределённая инструкция (вызывает исключение)</td><td>Тестирование обработчиков исключений</td></tr>
+<tr><td><code>xchg bx, bx</code></td><td>Точка останова для Bochs эмулятора</td><td></td></tr>
+<tr><td><code>pause</code></td><td>Улучшение производительности спинлока</td><td>В busy-wait циклах</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="15-16-битные-и-32-битные-режимы"><a class="header" href="#15-16-битные-и-32-битные-режимы"><strong>15. 16-битные и 32-битные режимы</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Использование при загрузке</th></tr>
+</thead>
+<tbody>
+<tr><td><code>aam</code>, <code>aad</code></td><td>ASCII-коррекция для BCD</td><td>Устаревшие, для обратной совместимости</td></tr>
+<tr><td><code>daa</code>, <code>das</code></td><td>Десятичная коррекция</td><td></td></tr>
+<tr><td><code>into</code></td><td>Прерывание при переполнении</td><td></td></tr>
+<tr><td><code>bound</code></td><td>Проверка границ массива</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="16-специальные-регистры-и-доступ-к-ним"><a class="header" href="#16-специальные-регистры-и-доступ-к-ним"><strong>16. Специальные регистры и доступ к ним</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Контрольный регистр</th><th>Описание</th><th>Биты</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>CR0</strong></td><td>Режим процессора, защита памяти, кэширование</td><td>PE (Protected Mode), PG (Paging)</td></tr>
+<tr><td><strong>CR2</strong></td><td>Линейный адрес, вызвавший Page Fault</td><td>Для отладки ошибок страниц</td></tr>
+<tr><td><strong>CR3</strong></td><td>Указатель на таблицу страниц (PML4)</td><td>Физический адрес корня страничной таблицы</td></tr>
+<tr><td><strong>CR4</strong></td><td>Расширенные функции</td><td>PAE, PSE, OSFXSR (SSE), OSXMMEXCPT</td></tr>
+<tr><td><strong>EFER</strong> (MSR 0xC0000080)</td><td>Extended Feature Enable Register</td><td>LME (Long Mode Enable), NXE (No-Execute Enable)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="пример-настройки-страничной-таблицы"><a class="header" href="#пример-настройки-страничной-таблицы"><strong>Пример настройки страничной таблицы:</strong></a></h3>
+<pre><code class="language-nasm">; Включение страничной организации памяти
+mov rax, page_table_base
+mov cr3, rax               ; Устанавливаем корень страничной таблицы
+
+mov rax, cr0
+or rax, 0x80000000         ; Устанавливаем бит PG (страничная организация)
+mov cr0, rax
+</code></pre>
+<h2 id="17-инструкции-для-энергосбережения"><a class="header" href="#17-инструкции-для-энергосбережения"><strong>17. Инструкции для энергосбережения</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Использование</th></tr>
+</thead>
+<tbody>
+<tr><td><code>pause</code></td><td>Уменьшает энергопотребление в спинлоках</td><td>В busy-wait циклах</td></tr>
+<tr><td><code>monitor</code></td><td>Настройка мониторинга адреса</td><td>Для синхронизации</td></tr>
+<tr><td><code>mwait</code></td><td>Ожидание события</td><td>Альтернатива hlt в многопроцессорных системах</td></tr>
+<tr><td><code>umonitor</code>, <code>umwait</code></td><td>User-mode версии</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="18-инструкции-для-криптографии"><a class="header" href="#18-инструкции-для-криптографии"><strong>18. Инструкции для криптографии</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Набор</th><th>Инструкция</th><th>Описание</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>AES-NI</strong></td><td><code>aesenc</code>, <code>aesenclast</code></td><td>Шифрование AES</td></tr>
+<tr><td></td><td><code>aesdec</code>, <code>aesdeclast</code></td><td>Дешифрование AES</td></tr>
+<tr><td></td><td><code>aeskeygenassist</code></td><td>Генерация ключей AES</td></tr>
+<tr><td><strong>SHA</strong></td><td><code>sha1rnds4</code>, <code>sha1nexte</code></td><td>Хэширование SHA-1</td></tr>
+<tr><td></td><td><code>sha256rnds2</code>, <code>sha256msg1</code></td><td>Хэширование SHA-256</td></tr>
+<tr><td><strong>PCLMULQDQ</strong></td><td><code>pclmulqdq</code></td><td>Умножение полиномов для GCM</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="пример-использования-aes-ni"><a class="header" href="#пример-использования-aes-ni"><strong>Пример использования AES-NI:</strong></a></h3>
+<pre><code class="language-nasm">; Шифрование одного блока AES-128
+movdqu xmm0, [plaintext]   ; Загружаем открытый текст
+movdqu xmm1, [key]         ; Загружаем ключ
+pxor xmm0, xmm1            ; AddRoundKey
+aesenc xmm0, [key+16]      ; 9 обычных раундов
+aesenc xmm0, [key+32]
+; ... и так 9 раз ...
+aesenclast xmm0, [key+160] ; Последний раунд
+movdqu [ciphertext], xmm0  ; Сохраняем результат
+</code></pre>
+<h2 id="19-редко-используемые-но-важные-инструкции"><a class="header" href="#19-редко-используемые-но-важные-инструкции"><strong>19. Редко используемые, но важные инструкции</strong></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Инструкция</th><th>Описание</th><th>Особый случай использования</th></tr>
+</thead>
+<tbody>
+<tr><td><code>xlat</code></td><td>Табличный перевод (AL = [RBX + AL])</td><td>Быстрое преобразование символов</td></tr>
+<tr><td><code>bswap</code></td><td>Обратный порядок байтов</td><td>Для работы с сетевым порядком байтов</td></tr>
+<tr><td><code>bsf</code>, <code>bsr</code></td><td>Найти первый установленный бит</td><td>Для работы с битовыми массивами</td></tr>
+<tr><td><code>popcnt</code></td><td>Подсчёт установленных битов</td><td></td></tr>
+<tr><td><code>lzcnt</code>, <code>tzcnt</code></td><td>Подсчёт ведущих/хвостовых нулей</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="20-полный-пример-системной-функции"><a class="header" href="#20-полный-пример-системной-функции"><strong>20. Полный пример системной функции</strong></a></h2>
+<pre><code class="language-nasm">; Пример: безопасная копия памяти с проверкой границ
+global memcpy_safe
+memcpy_safe:
+    ; RDI = dest, RSI = src, RDX = count, RCX = dest_size
+    push rbp
+    mov rbp, rsp
+    push rbx
+    push r12
+    
+    ; Проверка на переполнение
+    mov rax, rdi
+    add rax, rdx
+    cmp rax, rdi
+    jb .error          ; Проверка на переполнение
+    cmp rax, rdi
+    jbe .check_size    ; Если dest+count не переполнился
+    
+.check_size:
+    cmp rdx, rcx
+    ja .error          ; Если count &gt; dest_size
+    
+    ; Проверка перекрытия регионов
+    mov rbx, rdi
+    mov r12, rsi
+    sub rbx, r12
+    cmp rbx, rdx
+    jge .copy          ; Если dest &gt;= src+count
+    neg rbx
+    cmp rbx, rdx
+    jge .copy          ; Если src &gt;= dest+count
+    
+    ; Регионы перекрываются - используем обратный порядок
+    add rdi, rdx
+    add rsi, rdx
+    std                ; Устанавливаем флаг направления
+    rep movsb          ; Копируем в обратном порядке
+    cld                ; Сбрасываем флаг направления
+    jmp .success
+    
+.copy:
+    mov rcx, rdx
+    rep movsb          ; Копируем прямо
+    
+.success:
+    xor eax, eax       ; Успех
+    jmp .end
+    
+.error:
+    mov eax, 1         ; Ошибка
+    
+.end:
+    pop r12
+    pop rbx
+    pop rbp
+    ret
+</code></pre>
+<h2 id="заключение-выбор-правильных-инструкций"><a class="header" href="#заключение-выбор-правильных-инструкций"><strong>Заключение: Выбор правильных инструкций</strong></a></h2>
+<h3 id="правила-выбора-инструкций"><a class="header" href="#правила-выбора-инструкций"><strong>Правила выбора инструкций:</strong></a></h3>
+<ol>
+<li><strong>Читаемость vs Производительность</strong> — начинайте с читаемого кода, оптимизируйте позже</li>
+<li><strong>Размер vs Скорость</strong> — короткие инструкции часто быстрее</li>
+<li><strong>Совместимость</strong> — проверяйте поддержку инструкций на целевых процессорах</li>
+<li><strong>Безопасность</strong> — атомарные операции для многопоточного кода</li>
+<li><strong>Специализация</strong> — используйте SIMD для обработки данных, строковые инструкции для работы с памятью</li>
+</ol>
+<h3 id="полезные-мнемоники"><a class="header" href="#полезные-мнемоники"><strong>Полезные мнемоники:</strong></a></h3>
+<ul>
+<li><code>REP</code> — повторять, пока RCX &gt; 0</li>
+<li><code>LOCK</code> — атомарная операция</li>
+<li><code>STOS</code> — сохранить строку</li>
+<li><code>MOVS</code> — переместить строку</li>
+<li><code>CMPS</code> — сравнить строки</li>
+<li><code>SCAS</code> — сканировать строку</li>
+</ul>
+<p>Эти инструкции образуют базовый набор для системного программирования на x86_64. В реальном ядре ОС вы будете использовать их комбинации для реализации всех низкоуровневых механизмов.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="создание-первого-кода-на-языке-asm"><a class="header" href="#создание-первого-кода-на-языке-asm"><strong>Создание первого кода на языке ASM</strong></a></h1>
+<h2 id="введение-необходимость-ассемблера-в-ядре"><a class="header" href="#введение-необходимость-ассемблера-в-ядре"><strong>Введение: Необходимость ассемблера в ядре</strong></a></h2>
+<p>Мы уже создали первый драйвер на Rust. Теперь нужно подключить ASM к нашему Rust-коду. Зачем это нужно? Потому что невозможно создать планировщик для ядра без прямого обращения к ассемблеру. Мы обсудим это подробнее в будущем.</p>
+<h2 id="интеграция-ассемблера-в-rust"><a class="header" href="#интеграция-ассемблера-в-rust"><strong>Интеграция ассемблера в Rust</strong></a></h2>
+<h3 id="rust-код-с-вызовом-ассемблерной-функции"><a class="header" href="#rust-код-с-вызовом-ассемблерной-функции"><strong>Rust-код с вызовом ассемблерной функции</strong></a></h3>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// src/cpu/cpu_info.rs
+
+use crate::println;
+
+// Объявляем внешнюю ассемблерную функцию
+unsafe extern "C" {
+    fn add(a: i64, b: i64) -&gt; i64;
+}
+
+pub fn cpu_info() {
+    println!("Add: {}", unsafe {
+        add(1, 2)
+    });
+}
+<span class="boring">}</span></code></pre>
+<p><strong>Что здесь происходит:</strong></p>
+<ol>
+<li><code>extern "C"</code> — указывает, что функция использует соглашение о вызовах C</li>
+<li><code>unsafe</code> — необходим, так как вызываем код, который Rust не может проверить</li>
+<li><code>add(1, 2)</code> — вызываем ассемблерную функцию сложения</li>
+</ol>
+<h3 id="ассемблерная-реализация"><a class="header" href="#ассемблерная-реализация"><strong>Ассемблерная реализация</strong></a></h3>
+<pre><code class="language-nasm">; src/cpu/cpu_info.asm
+bits 64          ; 64-битный режим процессора
+global add       ; Экспортируем функцию для линковки
+
+section .text    ; Исполняемый сегмент кода
+add:
+    mov rax, rdi ; Первый аргумент (a) из RDI в RAX
+    add rax, rsi ; Прибавляем второй аргумент (b) из RSI
+    ret          ; Возвращаем результат в RAX
+</code></pre>
+<p><strong>Объяснение:</strong></p>
+<ol>
+<li><code>bits 64</code> — генерируем 64-битный код</li>
+<li><code>global add</code> — делаем функцию видимой для линковщика</li>
+<li><code>add:</code> — метка функции</li>
+<li>Согласно System V AMD64 ABI:
+<ul>
+<li>Первый аргумент передаётся в RDI</li>
+<li>Второй аргумент передаётся в RSI</li>
+<li>Результат возвращается в RAX</li>
+</ul>
+</li>
+</ol>
+<h2 id="сборка-проекта"><a class="header" href="#сборка-проекта"><strong>Сборка проекта</strong></a></h2>
+<h3 id="команды-сборки-вручную"><a class="header" href="#команды-сборки-вручную"><strong>Команды сборки вручную</strong></a></h3>
+<pre><code class="language-bash"># Компилируем ассемблерный код
+nasm -f elf64 src/cpu/cpu_info.asm -o cpu_info.o
+
+# Создаём статическую библиотеку
+ar rcs libasm.a cpu_info.o
+</code></pre>
+<h3 id="автоматизация-сборки-через-buildrs"><a class="header" href="#автоматизация-сборки-через-buildrs"><strong>Автоматизация сборки через build.rs</strong></a></h3>
+<pre class="playground"><code class="language-rust">// build.rs
+use std::env;
+use std::path::PathBuf;
+
+fn main() {
+    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+
+    // Копируем собранную библиотеку (предполагаем, что она уже собрана)
+    std::fs::copy("libasm.a", out_dir.join("libasm.a")).unwrap();
+
+    // Указываем линковщику где искать библиотеку
+    println!("cargo:rustc-link-search=native={}", out_dir.display());
+    println!("cargo:rustc-link-lib=static=asm");
+}</code></pre>
+<h2 id="как-это-работает-вместе"><a class="header" href="#как-это-работает-вместе"><strong>Как это работает вместе</strong></a></h2>
+<h3 id="процесс-сборки"><a class="header" href="#процесс-сборки"><strong>Процесс сборки:</strong></a></h3>
+<ol>
+<li>NASM компилирует <code>cpu_info.asm</code> в объектный файл <code>cpu_info.o</code></li>
+<li>AR создаёт статическую библиотеку <code>libasm.a</code></li>
+<li>build.rs копирует библиотеку в выходную директорию Cargo</li>
+<li>Rust линковщик подключает библиотеку к нашему ядру</li>
+<li>Rust код вызывает ассемблерную функцию через FFI</li>
+</ol>
+<h3 id="результат-выполнения"><a class="header" href="#результат-выполнения"><strong>Результат выполнения:</strong></a></h3>
+<p>При вызове <code>cpu_info()</code> будет выведено:
+<img src="ASM/media/add_asm.png" alt="core"></p>
+<h2 id="следующие-шаги"><a class="header" href="#следующие-шаги"><strong>Следующие шаги</strong></a></h2>
+<p>Это базовая интеграция ассемблера. В будущем мы:</p>
+<ol>
+<li>Добавим автоматическую сборку ассемблерного кода в build.rs</li>
+<li>Создадим реальные функции работы с процессором</li>
+<li>Реализуем переключение контекста для планировщика</li>
+<li>Добавим обработку прерываний</li>
+</ol>
+<p>Сейчас мы доказали, что можем вызывать ассемблерный код из Rust, что открывает путь к созданию полноценного планировщика задач.</p>
+<p><a href="#создание-первого-кода-на-языке-asm"></a></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ассемблер-и-rust-связь-высокого-и-низкого-уровня"><a class="header" href="#ассемблер-и-rust-связь-высокого-и-низкого-уровня"><strong>Ассемблер и Rust: Связь высокого и низкого уровня</strong></a></h1>
+<h2 id="1-зачем-связывать-rust-с-ассемблером"><a class="header" href="#1-зачем-связывать-rust-с-ассемблером">1. Зачем связывать Rust с ассемблером?</a></h2>
+<p>Rust — язык высокого уровня, удобный и безопасный. Но иногда нужно:</p>
+<ul>
+<li>
+<p>Максимальная производительность</p>
+</li>
+<li>
+<p>Прямое управление железом</p>
+</li>
+<li>
+<p>Оптимизация критичных участков</p>
+</li>
+<li>
+<p>Работа с кодом, которого нет в стандартной библиотеке</p>
+</li>
+</ul>
+<p>Ассемблер даёт <strong>абсолютный контроль над процессором</strong>, а Rust позволяет <strong>безопасно управлять сложными структурами и памятью</strong>. Вместе они дают мощь и гибкость.</p>
+<hr>
+<h2 id="2-подготовка-ассемблера-для-вызова-из-rust"><a class="header" href="#2-подготовка-ассемблера-для-вызова-из-rust">2. Подготовка ассемблера для вызова из Rust</a></h2>
+<h3 id="шаг-1-пишем-функцию-на-nasm"><a class="header" href="#шаг-1-пишем-функцию-на-nasm"><strong>Шаг 1: Пишем функцию на NASM</strong></a></h3>
+<p>Пример функции сложения двух чисел:</p>
+<pre><code class="language-nasm">; sum.asm
+global add_numbers
+section .text
+add_numbers:
+    mov rax, rdi    ; первый аргумент → RAX
+    add rax, rsi    ; прибавляем второй аргумент
+    ret
+</code></pre>
+<p><strong>Важно:</strong></p>
+<ul>
+<li>
+<p><code>global add_numbers</code> — делает функцию видимой для компоновщика</p>
+</li>
+<li>
+<p>Используем <strong>System V AMD64 ABI</strong>, чтобы Rust знал, куда передавать аргументы</p>
+</li>
+</ul>
+<hr>
+<h3 id="шаг-2-компиляция-в-объектный-файл"><a class="header" href="#шаг-2-компиляция-в-объектный-файл"><strong>Шаг 2: Компиляция в объектный файл</strong></a></h3>
+<pre><code class="language-bash">nasm -f elf64 sum.asm -o sum.o
+</code></pre>
+<ul>
+<li>
+<p><code>-f elf64</code> → объектный файл для x86_64 Linux</p>
+</li>
+<li>
+<p>Можно затем собрать статическую библиотеку:</p>
+</li>
+</ul>
+<pre><code class="language-bash">ar rcs libasm.a sum.o
+</code></pre>
+<hr>
+<h2 id="3-вызов-ассемблера-из-rust"><a class="header" href="#3-вызов-ассемблера-из-rust">3. Вызов ассемблера из Rust</a></h2>
+<h3 id="31-объявление-функции-в-rust"><a class="header" href="#31-объявление-функции-в-rust"><strong>3.1 Объявление функции в Rust</strong></a></h3>
+<pre class="playground"><code class="language-rust">extern "C" {
+    fn add_numbers(a: u64, b: u64) -&gt; u64;
+}
+
+fn main() {
+    let a = 10;
+    let b = 20;
+
+    let sum: u64;
+
+    unsafe {
+        sum = add_numbers(a, b);
+    }
+
+    println!("Сумма: {}", sum);
+}</code></pre>
+<p><strong>Объяснение:</strong></p>
+<ul>
+<li>
+<p><code>extern "C"</code> → Rust использует стандартные правила вызова функций (ABI)</p>
+</li>
+<li>
+<p><code>unsafe</code> → вызов внешнего кода может быть небезопасным</p>
+</li>
+<li>
+<p>Результат возвращается через <code>rax</code> (стандарт для 64-битных целых чисел)</p>
+</li>
+</ul>
+<hr>
+<h3 id="32-связка-через-cargo"><a class="header" href="#32-связка-через-cargo"><strong>3.2 Связка через Cargo</strong></a></h3>
+<p>В <code>build.rs</code> можно автоматически копировать библиотеку:</p>
+<pre class="playground"><code class="language-rust">use std::env;
+use std::path::PathBuf;
+
+fn main() {
+    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+    std::fs::copy("libasm.a", out_dir.join("libasm.a")).unwrap();
+    println!("cargo:rustc-link-search=native={}", out_dir.display());
+    println!("cargo:rustc-link-lib=static=asm");
+}</code></pre>
+<ul>
+<li>
+<p><code>cargo build</code> автоматически подхватит библиотеку</p>
+</li>
+<li>
+<p>Rust сможет вызывать ассемблерный код напрямую</p>
+</li>
+</ul>
+<hr>
+<h2 id="4-пример-сумма-массива"><a class="header" href="#4-пример-сумма-массива">4. Пример: Сумма массива</a></h2>
+<p>Ассемблерная функция:</p>
+<pre><code class="language-nasm">global sum_array
+section .text
+sum_array:
+    xor rax, rax       ; сумма = 0
+.loop:
+    test rsi, rsi
+    jz .done
+    add rax, [rdi + rcx*8]
+    inc rcx
+    dec rsi
+    jnz .loop
+.done:
+    ret
+</code></pre>
+<p>Rust:</p>
+<pre class="playground"><code class="language-rust">extern "C" {
+    fn sum_array(ptr: *const u64, len: u64) -&gt; u64;
+}
+
+fn main() {
+    let arr = [1, 2, 3, 4, 5];
+
+    let sum: u64;
+    unsafe {
+        sum = sum_array(arr.as_ptr(), arr.len() as u64);
+    }
+
+    println!("Сумма массива: {}", sum);
+}</code></pre>
+<hr>
+<h2 id="5-практические-советы"><a class="header" href="#5-практические-советы">5. Практические советы</a></h2>
+<ol>
+<li>
+<p><strong>Всегда проверяйте ABI</strong> — регистры и порядок аргументов должны совпадать</p>
+</li>
+<li>
+<p><strong>Используйте <code>extern "C"</code></strong> для совместимости</p>
+</li>
+<li>
+<p><strong>Используйте <code>unsafe</code> только для вызова ассемблера</strong></p>
+</li>
+<li>
+<p><strong>Тестируйте на небольших функциях</strong> — сложный ассемблерный код трудно отлаживать</p>
+</li>
+</ol>
+<hr>
+<h2 id="6-что-дальше"><a class="header" href="#6-что-дальше">6. Что дальше?</a></h2>
+<ol>
+<li>
+<p>Вы освоили <strong>простые функции на ассемблере и вызов из Rust</strong></p>
+</li>
+<li>
+<p>Можно создавать <strong>оптимизированные ядра, драйверы, обработчики прерываний</strong></p>
+</li>
+<li>
+<p>Следующий шаг — <strong>встраивание ассемблера в системное программирование и работу с портами/устройствами</strong></p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="драйверы"><a href="#драйверы" class="header">Драйверы</a></h1>
+<h2 id="драйвера"><a class="header" href="#драйвера">Драйвера</a></h2>
+<p><a href="#создание-первого-драйвера-в-runix-vga-текстовый-вывод">Создание первого драйвера в Runix: VGA текстовая вывода</a></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="создание-первого-драйвера-в-runix-vga-текстовый-вывод"><a href="#создание-первого-драйвера-в-runix-vga-текстовый-вывод" class="header">Создание первого драйвера в Runix: VGA текстовый вывод</a></h1>
 <h2 id="создание-первого-драйвера-в-runix-vga-текстовая-вывода"><a class="header" href="#создание-первого-драйвера-в-runix-vga-текстовая-вывода">Создание первого драйвера в Runix: VGA текстовая вывода</a></h2>
 <h2 id="от-хаоса-к-порядку--пишем-наш-первый-драйвер"><a class="header" href="#от-хаоса-к-порядку--пишем-наш-первый-драйвер"><strong>От хаоса к порядку — пишем наш первый драйвер</strong></a></h2>
 <p>В прошлый раз мы совершили чудо: заставили компьютер запускать наш собственный код. На экране появилось гордое <strong>«Runix Kernel v0.1.0»</strong>. Но если заглянуть внутрь, то наш успех был, скажем так, <em>минималистичным</em>.</p>
@@ -1378,104 +2592,7 @@ STATE.lock().write_color = color;  // Мьютекс освобождается!
 <li>Принципы создания безопасных абстракций</li>
 <li>Подход к обработке edge cases и граничных условий</li>
 </ul>
-<p><a href="#создание-первого-кода-на-языке-asm">Создание первого кода на языке ASM</a></p>
-<div style="break-before: page; page-break-before: always;"></div>
-<h1 id="создание-первого-кода-на-языке-asm"><a class="header" href="#создание-первого-кода-на-языке-asm"><strong>Создание первого кода на языке ASM</strong></a></h1>
-<h2 id="введение-необходимость-ассемблера-в-ядре"><a class="header" href="#введение-необходимость-ассемблера-в-ядре"><strong>Введение: Необходимость ассемблера в ядре</strong></a></h2>
-<p>Мы уже создали первый драйвер на Rust. Теперь нужно подключить ASM к нашему Rust-коду. Зачем это нужно? Потому что невозможно создать планировщик для ядра без прямого обращения к ассемблеру. Мы обсудим это подробнее в будущем.</p>
-<h2 id="интеграция-ассемблера-в-rust"><a class="header" href="#интеграция-ассемблера-в-rust"><strong>Интеграция ассемблера в Rust</strong></a></h2>
-<h3 id="rust-код-с-вызовом-ассемблерной-функции"><a class="header" href="#rust-код-с-вызовом-ассемблерной-функции"><strong>Rust-код с вызовом ассемблерной функции</strong></a></h3>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// src/cpu/cpu_info.rs
-
-use crate::println;
-
-// Объявляем внешнюю ассемблерную функцию
-unsafe extern "C" {
-    fn add(a: i64, b: i64) -&gt; i64;
-}
-
-pub fn cpu_info() {
-    println!("Add: {}", unsafe {
-        add(1, 2)
-    });
-}
-<span class="boring">}</span></code></pre>
-<p><strong>Что здесь происходит:</strong></p>
-<ol>
-<li><code>extern "C"</code> — указывает, что функция использует соглашение о вызовах C</li>
-<li><code>unsafe</code> — необходим, так как вызываем код, который Rust не может проверить</li>
-<li><code>add(1, 2)</code> — вызываем ассемблерную функцию сложения</li>
-</ol>
-<h3 id="ассемблерная-реализация"><a class="header" href="#ассемблерная-реализация"><strong>Ассемблерная реализация</strong></a></h3>
-<pre><code class="language-nasm">; src/cpu/cpu_info.asm
-bits 64          ; 64-битный режим процессора
-global add       ; Экспортируем функцию для линковки
-
-section .text    ; Исполняемый сегмент кода
-add:
-    mov rax, rdi ; Первый аргумент (a) из RDI в RAX
-    add rax, rsi ; Прибавляем второй аргумент (b) из RSI
-    ret          ; Возвращаем результат в RAX
-</code></pre>
-<p><strong>Объяснение:</strong></p>
-<ol>
-<li><code>bits 64</code> — генерируем 64-битный код</li>
-<li><code>global add</code> — делаем функцию видимой для линковщика</li>
-<li><code>add:</code> — метка функции</li>
-<li>Согласно System V AMD64 ABI:
-<ul>
-<li>Первый аргумент передаётся в RDI</li>
-<li>Второй аргумент передаётся в RSI</li>
-<li>Результат возвращается в RAX</li>
-</ul>
-</li>
-</ol>
-<h2 id="сборка-проекта"><a class="header" href="#сборка-проекта"><strong>Сборка проекта</strong></a></h2>
-<h3 id="команды-сборки-вручную"><a class="header" href="#команды-сборки-вручную"><strong>Команды сборки вручную</strong></a></h3>
-<pre><code class="language-bash"># Компилируем ассемблерный код
-nasm -f elf64 src/cpu/cpu_info.asm -o cpu_info.o
-
-# Создаём статическую библиотеку
-ar rcs libasm.a cpu_info.o
-</code></pre>
-<h3 id="автоматизация-сборки-через-buildrs"><a class="header" href="#автоматизация-сборки-через-buildrs"><strong>Автоматизация сборки через build.rs</strong></a></h3>
-<pre class="playground"><code class="language-rust">// build.rs
-use std::env;
-use std::path::PathBuf;
-
-fn main() {
-    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
-
-    // Копируем собранную библиотеку (предполагаем, что она уже собрана)
-    std::fs::copy("libasm.a", out_dir.join("libasm.a")).unwrap();
-
-    // Указываем линковщику где искать библиотеку
-    println!("cargo:rustc-link-search=native={}", out_dir.display());
-    println!("cargo:rustc-link-lib=static=asm");
-}</code></pre>
-<h2 id="как-это-работает-вместе"><a class="header" href="#как-это-работает-вместе"><strong>Как это работает вместе</strong></a></h2>
-<h3 id="процесс-сборки"><a class="header" href="#процесс-сборки"><strong>Процесс сборки:</strong></a></h3>
-<ol>
-<li>NASM компилирует <code>cpu_info.asm</code> в объектный файл <code>cpu_info.o</code></li>
-<li>AR создаёт статическую библиотеку <code>libasm.a</code></li>
-<li>build.rs копирует библиотеку в выходную директорию Cargo</li>
-<li>Rust линковщик подключает библиотеку к нашему ядру</li>
-<li>Rust код вызывает ассемблерную функцию через FFI</li>
-</ol>
-<h3 id="результат-выполнения"><a class="header" href="#результат-выполнения"><strong>Результат выполнения:</strong></a></h3>
-<p>При вызове <code>cpu_info()</code> будет выведено:
-<img src="media/add_asm.png" alt="core"></p>
-<h2 id="следующие-шаги"><a class="header" href="#следующие-шаги"><strong>Следующие шаги</strong></a></h2>
-<p>Это базовая интеграция ассемблера. В будущем мы:</p>
-<ol>
-<li>Добавим автоматическую сборку ассемблерного кода в build.rs</li>
-<li>Создадим реальные функции работы с процессором</li>
-<li>Реализуем переключение контекста для планировщика</li>
-<li>Добавим обработку прерываний</li>
-</ol>
-<p>Сейчас мы доказали, что можем вызывать ассемблерный код из Rust, что открывает путь к созданию полноценного планировщика задач.</p>
+<p><a href="Creation_first_code_the_ASM_language.html">Создание первого кода на языке ASM</a></p>
 
                     </main>
 
