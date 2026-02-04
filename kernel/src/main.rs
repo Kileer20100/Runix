@@ -52,7 +52,7 @@ pub extern "C" fn _start() -> ! {
             port.write(byte);
         }
     }
-    println!("Runix kernel started!");
+
     cpu_info();
 
     //let mut couter = 0;

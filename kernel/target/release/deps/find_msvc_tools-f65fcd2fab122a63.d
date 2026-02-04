@@ -1,0 +1,9 @@
+/home/kiril/Runix/kernel/target/release/deps/find_msvc_tools-f65fcd2fab122a63.d: /home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/lib.rs /home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/find_tools.rs /home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/tool.rs
+
+/home/kiril/Runix/kernel/target/release/deps/libfind_msvc_tools-f65fcd2fab122a63.rlib: /home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/lib.rs /home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/find_tools.rs /home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/tool.rs
+
+/home/kiril/Runix/kernel/target/release/deps/libfind_msvc_tools-f65fcd2fab122a63.rmeta: /home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/lib.rs /home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/find_tools.rs /home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/tool.rs
+
+/home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/lib.rs:
+/home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/find_tools.rs:
+/home/kiril/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/find-msvc-tools-0.1.8/src/tool.rs:
