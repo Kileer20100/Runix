@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ceb01208.js";
+            window.path_to_searchindex_js = "../searchindex-97e26945.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-019780d5.js"></script>
+        <script src="../toc-3db8f990.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,8 +177,8 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="ключевые-инструкции-x86_64-для-системного-программирования"><a class="header" href="#ключевые-инструкции-x86_64-для-системного-программирования"><strong>Ключевые инструкции x86_64 для системного программирования</strong></a></h1>
-<h2 id="1-перемещение-данных"><a class="header" href="#1-перемещение-данных"><strong>1. Перемещение данных</strong></a></h2>
+                        <h1 id="ключевые-инструкции-x86_64-для-системного-программирования"><a class="header" href="#ключевые-инструкции-x86_64-для-системного-программирования">Ключевые инструкции x86_64 для системного программирования</a></h1>
+<h2 id="1-перемещение-данных"><a class="header" href="#1-перемещение-данных">1. Перемещение данных</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -194,8 +194,7 @@
 </tbody>
 </table>
 </div>
-<hr>
-<h2 id="2-арифметика-и-логика"><a class="header" href="#2-арифметика-и-логика"><strong>2. Арифметика и логика</strong></a></h2>
+<h2 id="2-арифметика-и-логика"><a class="header" href="#2-арифметика-и-логика">2. Арифметика и логика</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -220,8 +219,7 @@
 </tbody>
 </table>
 </div>
-<hr>
-<h2 id="3-сравнения-и-условные-переходы"><a class="header" href="#3-сравнения-и-условные-переходы"><strong>3. Сравнения и условные переходы</strong></a></h2>
+<h2 id="3-сравнения-и-условные-переходы"><a class="header" href="#3-сравнения-и-условные-переходы">3. Сравнения и условные переходы</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -230,17 +228,16 @@
 <tbody>
 <tr><td><code>cmp</code></td><td>Сравнение двух значений, результат в флагах</td><td><code>cmp rax, rbx</code></td></tr>
 <tr><td><code>test</code></td><td>Логическое И для установки флагов</td><td><code>test rax, rax</code> – проверка на ноль</td></tr>
-<tr><td><code>je/jz</code></td><td>Перейти, если равны / ноль</td><td><code>je .label</code></td></tr>
-<tr><td><code>jne/jnz</code></td><td>Перейти, если не равны / не ноль</td><td><code>jne .label</code></td></tr>
-<tr><td><code>jg/jnle</code></td><td>Перейти если больше (со знаком)</td><td><code>jg .label</code></td></tr>
-<tr><td><code>jl/jnge</code></td><td>Перейти если меньше (со знаком)</td><td><code>jl .label</code></td></tr>
-<tr><td><code>jge/jnl</code></td><td>Перейти если больше или равно</td><td><code>jge .label</code></td></tr>
-<tr><td><code>jle/jng</code></td><td>Перейти если меньше или равно</td><td><code>jle .label</code></td></tr>
+<tr><td><code>je</code>/<code>jz</code></td><td>Перейти, если равны / ноль</td><td><code>je .label</code></td></tr>
+<tr><td><code>jne</code>/<code>jnz</code></td><td>Перейти, если не равны / не ноль</td><td><code>jne .label</code></td></tr>
+<tr><td><code>jg</code>/<code>jnle</code></td><td>Перейти если больше (со знаком)</td><td><code>jg .label</code></td></tr>
+<tr><td><code>jl</code>/<code>jnge</code></td><td>Перейти если меньше (со знаком)</td><td><code>jl .label</code></td></tr>
+<tr><td><code>jge</code>/<code>jnl</code></td><td>Перейти если больше или равно</td><td><code>jge .label</code></td></tr>
+<tr><td><code>jle</code>/<code>jng</code></td><td>Перейти если меньше или равно</td><td><code>jle .label</code></td></tr>
 </tbody>
 </table>
 </div>
-<hr>
-<h2 id="4-циклы-и-работа-с-rcx"><a class="header" href="#4-циклы-и-работа-с-rcx"><strong>4. Циклы и работа с RCX</strong></a></h2>
+<h2 id="4-циклы-и-работа-с-rcx"><a class="header" href="#4-циклы-и-работа-с-rcx">4. Циклы и работа с RCX</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -252,8 +249,7 @@
 </tbody>
 </table>
 </div>
-<hr>
-<h2 id="5-вызовы-функций-и-возврат"><a class="header" href="#5-вызовы-функций-и-возврат"><strong>5. Вызовы функций и возврат</strong></a></h2>
+<h2 id="5-вызовы-функций-и-возврат"><a class="header" href="#5-вызовы-функций-и-возврат">5. Вызовы функций и возврат</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -267,8 +263,7 @@
 </tbody>
 </table>
 </div>
-<hr>
-<h2 id="6-стек-и-регистры-rbprsp"><a class="header" href="#6-стек-и-регистры-rbprsp"><strong>6. Стек и регистры RBP/RSP</strong></a></h2>
+<h2 id="6-стек-и-регистры-rbprsp"><a class="header" href="#6-стек-и-регистры-rbprsp">6. Стек и регистры RBP/RSP</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -281,8 +276,8 @@
 </tbody>
 </table>
 </div>
-<p><strong>Пример сохранения контекста функции:</strong></p>
-<pre><code class="language-nasm">push rbp
+<h3 id="пример-сохранения-контекста-функции"><a class="header" href="#пример-сохранения-контекста-функции">Пример сохранения контекста функции:</a></h3>
+<pre><code class="language-assembly">push rbp
 mov rbp, rsp
 push rbx
 ; ... тело функции ...
@@ -290,8 +285,7 @@ pop rbx
 pop rbp
 ret
 </code></pre>
-<hr>
-<h2 id="7-работа-с-памятью"><a class="header" href="#7-работа-с-памятью"><strong>7. Работа с памятью</strong></a></h2>
+<h2 id="7-работа-с-памятью"><a class="header" href="#7-работа-с-памятью">7. Работа с памятью</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -305,8 +299,7 @@ ret
 </tbody>
 </table>
 </div>
-<hr>
-<h2 id="8-системные-инструкции-и-io"><a class="header" href="#8-системные-инструкции-и-io"><strong>8. Системные инструкции и I/O</strong></a></h2>
+<h2 id="8-системные-инструкции-и-io"><a class="header" href="#8-системные-инструкции-и-io">8. Системные инструкции и I/O</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -322,7 +315,7 @@ ret
 </tbody>
 </table>
 </div>
-<h2 id="9-работа-со-строковыми-данными"><a class="header" href="#9-работа-со-строковыми-данными"><strong>9. Работа со строковыми данными</strong></a></h2>
+<h2 id="9-работа-со-строковыми-данными"><a class="header" href="#9-работа-со-строковыми-данными">9. Работа со строковыми данными</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -340,8 +333,8 @@ ret
 </tbody>
 </table>
 </div>
-<h3 id="пример-использования-строковых-инструкций"><a class="header" href="#пример-использования-строковых-инструкций"><strong>Пример использования строковых инструкций:</strong></a></h3>
-<pre><code class="language-nasm">; Копирование блока памяти (16 байт)
+<h3 id="пример-использования-строковых-инструкций"><a class="header" href="#пример-использования-строковых-инструкций">Пример использования строковых инструкций:</a></h3>
+<pre><code class="language-assembly">; Копирование блока памяти (16 байт)
 mov rsi, source    ; Источник
 mov rdi, dest      ; Назначение
 mov rcx, 2         ; Количество 8-байтных блоков (16/8 = 2)
@@ -353,7 +346,7 @@ mov rcx, 1024      ; Размер в байтах
 mov al, 0
 rep stosb          ; Заполняем 1024 байта нулями
 </code></pre>
-<h2 id="10-привилегированные-инструкции-для-ядра-ос"><a class="header" href="#10-привилегированные-инструкции-для-ядра-ос"><strong>10. Привилегированные инструкции для ядра ОС</strong></a></h2>
+<h2 id="10-привилегированные-инструкции-для-ядра-ос"><a class="header" href="#10-привилегированные-инструкции-для-ядра-ос">10. Привилегированные инструкции для ядра ОС</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -376,8 +369,8 @@ rep stosb          ; Заполняем 1024 байта нулями
 </tbody>
 </table>
 </div>
-<h3 id="пример-работы-с-msr-model-specific-registers"><a class="header" href="#пример-работы-с-msr-model-specific-registers"><strong>Пример работы с MSR (Model-Specific Registers):</strong></a></h3>
-<pre><code class="language-nasm">; Включение SSE (Streaming SIMD Extensions)
+<h3 id="пример-работы-с-msr-model-specific-registers"><a class="header" href="#пример-работы-с-msr-model-specific-registers">Пример работы с MSR (Model-Specific Registers):</a></h3>
+<pre><code class="language-assembly">; Включение SSE (Streaming SIMD Extensions)
 mov ecx, 0xC0010015 ; MSR для включения SSE
 rdmsr               ; Читаем текущее значение
 or eax, 3           ; Устанавливаем биты SSE
@@ -389,35 +382,35 @@ cpuid
 test edx, 1 &lt;&lt; 25   ; Проверяем бит SSE
 jnz sse_available
 </code></pre>
-<h2 id="11-simd-инструкции-mmxsseavx"><a class="header" href="#11-simd-инструкции-mmxsseavx"><strong>11. SIMD инструкции (MMX/SSE/AVX)</strong></a></h2>
+<h2 id="11-simd-инструкции-mmxsseavx"><a class="header" href="#11-simd-инструкции-mmxsseavx">11. SIMD инструкции (MMX/SSE/AVX)</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Категория</th><th>Инструкция</th><th>Описание</th><th>Пример</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>MMX</strong></td><td><code>paddb</code>, <code>paddw</code>, <code>paddd</code>, <code>paddq</code></td><td>Параллельное сложение</td><td><code>paddd mm0, mm1</code></td></tr>
+<tr><td>MMX</td><td><code>paddb</code>, <code>paddw</code>, <code>paddd</code>, <code>paddq</code></td><td>Параллельное сложение</td><td><code>paddd mm0, mm1</code></td></tr>
 <tr><td></td><td><code>psubb</code>, <code>psubw</code>, <code>psubd</code>, <code>psubq</code></td><td>Параллельное вычитание</td><td></td></tr>
-<tr><td><strong>SSE</strong></td><td><code>addps</code>, <code>addss</code></td><td>Сложение float (packed/scalar)</td><td><code>addps xmm0, xmm1</code></td></tr>
+<tr><td>SSE</td><td><code>addps</code>, <code>addss</code></td><td>Сложение float (packed/scalar)</td><td><code>addps xmm0, xmm1</code></td></tr>
 <tr><td></td><td><code>subps</code>, <code>subss</code></td><td>Вычитание float</td><td></td></tr>
 <tr><td></td><td><code>mulps</code>, <code>mulss</code></td><td>Умножение float</td><td></td></tr>
 <tr><td></td><td><code>divps</code>, <code>divss</code></td><td>Деление float</td><td></td></tr>
 <tr><td></td><td><code>sqrtps</code>, <code>sqrtss</code></td><td>Квадратный корень</td><td></td></tr>
 <tr><td></td><td><code>movaps</code>, <code>movups</code></td><td>Перемещение выровненное/невыровненное</td><td></td></tr>
-<tr><td><strong>AVX</strong></td><td><code>vaddps</code>, <code>vsubps</code></td><td>256-битные векторные операции</td><td><code>vaddps ymm0, ymm1, ymm2</code></td></tr>
+<tr><td>AVX</td><td><code>vaddps</code>, <code>vsubps</code></td><td>256-битные векторные операции</td><td><code>vaddps ymm0, ymm1, ymm2</code></td></tr>
 <tr><td></td><td><code>vmulps</code>, <code>vdivps</code></td><td></td><td></td></tr>
 <tr><td></td><td><code>vsqrtps</code></td><td></td><td></td></tr>
 </tbody>
 </table>
 </div>
-<h3 id="пример-simd-вычислений"><a class="header" href="#пример-simd-вычислений"><strong>Пример SIMD вычислений:</strong></a></h3>
-<pre><code class="language-nasm">; Умножение 4 чисел с плавающей точкой одновременно
+<h3 id="пример-simd-вычислений"><a class="header" href="#пример-simd-вычислений">Пример SIMD вычислений:</a></h3>
+<pre><code class="language-assembly">; Умножение 4 чисел с плавающей точкой одновременно
 movaps xmm0, [array1]   ; Загружаем 4 float (16 байт)
 movaps xmm1, [array2]   ; Ещё 4 float
 mulps xmm0, xmm1        ; Перемножаем все 4 пары одновременно
 movaps [result], xmm0   ; Сохраняем 4 результата
 </code></pre>
-<h2 id="12-атомарные-операции-для-многопоточности"><a class="header" href="#12-атомарные-операции-для-многопоточности"><strong>12. Атомарные операции (для многопоточности)</strong></a></h2>
+<h2 id="12-атомарные-операции-для-многопоточности"><a class="header" href="#12-атомарные-операции-для-многопоточности">12. Атомарные операции (для многопоточности)</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -436,8 +429,8 @@ movaps [result], xmm0   ; Сохраняем 4 результата
 </tbody>
 </table>
 </div>
-<h3 id="пример-атомарных-операций"><a class="header" href="#пример-атомарных-операций"><strong>Пример атомарных операций:</strong></a></h3>
-<pre><code class="language-nasm">; Атомарный инкремент счётчика
+<h3 id="пример-атомарных-операций"><a class="header" href="#пример-атомарных-операций">Пример атомарных операций:</a></h3>
+<pre><code class="language-assembly">; Атомарный инкремент счётчика
 lock inc qword [counter]
 
 ; Сравнение с обменом (Compare-And-Swap)
@@ -447,7 +440,7 @@ mov rdx, new_value
 lock cmpxchg [ptr], rdx
 ; ZF=1 если обмен произошёл
 </code></pre>
-<h2 id="13-инструкции-для-виртуальной-памяти"><a class="header" href="#13-инструкции-для-виртуальной-памяти"><strong>13. Инструкции для виртуальной памяти</strong></a></h2>
+<h2 id="13-инструкции-для-виртуальной-памяти"><a class="header" href="#13-инструкции-для-виртуальной-памяти">13. Инструкции для виртуальной памяти</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -462,7 +455,7 @@ lock cmpxchg [ptr], rdx
 </tbody>
 </table>
 </div>
-<h2 id="14-отладочные-инструкции"><a class="header" href="#14-отладочные-инструкции"><strong>14. Отладочные инструкции</strong></a></h2>
+<h2 id="14-отладочные-инструкции"><a class="header" href="#14-отладочные-инструкции">14. Отладочные инструкции</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -476,7 +469,7 @@ lock cmpxchg [ptr], rdx
 </tbody>
 </table>
 </div>
-<h2 id="15-16-битные-и-32-битные-режимы"><a class="header" href="#15-16-битные-и-32-битные-режимы"><strong>15. 16-битные и 32-битные режимы</strong></a></h2>
+<h2 id="15-16-битные-и-32-битные-режимы"><a class="header" href="#15-16-битные-и-32-битные-режимы">15. 16-битные и 32-битные режимы</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -490,23 +483,23 @@ lock cmpxchg [ptr], rdx
 </tbody>
 </table>
 </div>
-<h2 id="16-специальные-регистры-и-доступ-к-ним"><a class="header" href="#16-специальные-регистры-и-доступ-к-ним"><strong>16. Специальные регистры и доступ к ним</strong></a></h2>
+<h2 id="16-специальные-регистры-и-доступ-к-ним"><a class="header" href="#16-специальные-регистры-и-доступ-к-ним">16. Специальные регистры и доступ к ним</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Контрольный регистр</th><th>Описание</th><th>Биты</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>CR0</strong></td><td>Режим процессора, защита памяти, кэширование</td><td>PE (Protected Mode), PG (Paging)</td></tr>
-<tr><td><strong>CR2</strong></td><td>Линейный адрес, вызвавший Page Fault</td><td>Для отладки ошибок страниц</td></tr>
-<tr><td><strong>CR3</strong></td><td>Указатель на таблицу страниц (PML4)</td><td>Физический адрес корня страничной таблицы</td></tr>
-<tr><td><strong>CR4</strong></td><td>Расширенные функции</td><td>PAE, PSE, OSFXSR (SSE), OSXMMEXCPT</td></tr>
-<tr><td><strong>EFER</strong> (MSR 0xC0000080)</td><td>Extended Feature Enable Register</td><td>LME (Long Mode Enable), NXE (No-Execute Enable)</td></tr>
+<tr><td>CR0</td><td>Режим процессора, защита памяти, кэширование</td><td>PE (Protected Mode), PG (Paging)</td></tr>
+<tr><td>CR2</td><td>Линейный адрес, вызвавший Page Fault</td><td>Для отладки ошибок страниц</td></tr>
+<tr><td>CR3</td><td>Указатель на таблицу страниц (PML4)</td><td>Физический адрес корня страничной таблицы</td></tr>
+<tr><td>CR4</td><td>Расширенные функции</td><td>PAE, PSE, OSFXSR (SSE), OSXMMEXCPT</td></tr>
+<tr><td>EFER (MSR 0xC0000080)</td><td>Extended Feature Enable Register</td><td>LME (Long Mode Enable), NXE (No-Execute Enable)</td></tr>
 </tbody>
 </table>
 </div>
-<h3 id="пример-настройки-страничной-таблицы"><a class="header" href="#пример-настройки-страничной-таблицы"><strong>Пример настройки страничной таблицы:</strong></a></h3>
-<pre><code class="language-nasm">; Включение страничной организации памяти
+<h3 id="пример-настройки-страничной-таблицы"><a class="header" href="#пример-настройки-страничной-таблицы">Пример настройки страничной таблицы:</a></h3>
+<pre><code class="language-assembly">; Включение страничной организации памяти
 mov rax, page_table_base
 mov cr3, rax               ; Устанавливаем корень страничной таблицы
 
@@ -514,7 +507,7 @@ mov rax, cr0
 or rax, 0x80000000         ; Устанавливаем бит PG (страничная организация)
 mov cr0, rax
 </code></pre>
-<h2 id="17-инструкции-для-энергосбережения"><a class="header" href="#17-инструкции-для-энергосбережения"><strong>17. Инструкции для энергосбережения</strong></a></h2>
+<h2 id="17-инструкции-для-энергосбережения"><a class="header" href="#17-инструкции-для-энергосбережения">17. Инструкции для энергосбережения</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -528,24 +521,24 @@ mov cr0, rax
 </tbody>
 </table>
 </div>
-<h2 id="18-инструкции-для-криптографии"><a class="header" href="#18-инструкции-для-криптографии"><strong>18. Инструкции для криптографии</strong></a></h2>
+<h2 id="18-инструкции-для-криптографии"><a class="header" href="#18-инструкции-для-криптографии">18. Инструкции для криптографии</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Набор</th><th>Инструкция</th><th>Описание</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>AES-NI</strong></td><td><code>aesenc</code>, <code>aesenclast</code></td><td>Шифрование AES</td></tr>
+<tr><td>AES-NI</td><td><code>aesenc</code>, <code>aesenclast</code></td><td>Шифрование AES</td></tr>
 <tr><td></td><td><code>aesdec</code>, <code>aesdeclast</code></td><td>Дешифрование AES</td></tr>
 <tr><td></td><td><code>aeskeygenassist</code></td><td>Генерация ключей AES</td></tr>
-<tr><td><strong>SHA</strong></td><td><code>sha1rnds4</code>, <code>sha1nexte</code></td><td>Хэширование SHA-1</td></tr>
+<tr><td>SHA</td><td><code>sha1rnds4</code>, <code>sha1nexte</code></td><td>Хэширование SHA-1</td></tr>
 <tr><td></td><td><code>sha256rnds2</code>, <code>sha256msg1</code></td><td>Хэширование SHA-256</td></tr>
-<tr><td><strong>PCLMULQDQ</strong></td><td><code>pclmulqdq</code></td><td>Умножение полиномов для GCM</td></tr>
+<tr><td>PCLMULQDQ</td><td><code>pclmulqdq</code></td><td>Умножение полиномов для GCM</td></tr>
 </tbody>
 </table>
 </div>
-<h3 id="пример-использования-aes-ni"><a class="header" href="#пример-использования-aes-ni"><strong>Пример использования AES-NI:</strong></a></h3>
-<pre><code class="language-nasm">; Шифрование одного блока AES-128
+<h3 id="пример-использования-aes-ni"><a class="header" href="#пример-использования-aes-ni">Пример использования AES-NI:</a></h3>
+<pre><code class="language-assembly">; Шифрование одного блока AES-128
 movdqu xmm0, [plaintext]   ; Загружаем открытый текст
 movdqu xmm1, [key]         ; Загружаем ключ
 pxor xmm0, xmm1            ; AddRoundKey
@@ -555,7 +548,7 @@ aesenc xmm0, [key+32]
 aesenclast xmm0, [key+160] ; Последний раунд
 movdqu [ciphertext], xmm0  ; Сохраняем результат
 </code></pre>
-<h2 id="19-редко-используемые-но-важные-инструкции"><a class="header" href="#19-редко-используемые-но-важные-инструкции"><strong>19. Редко используемые, но важные инструкции</strong></a></h2>
+<h2 id="19-редко-используемые-но-важные-инструкции"><a class="header" href="#19-редко-используемые-но-важные-инструкции">19. Редко используемые, но важные инструкции</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -570,8 +563,8 @@ movdqu [ciphertext], xmm0  ; Сохраняем результат
 </tbody>
 </table>
 </div>
-<h2 id="20-полный-пример-системной-функции"><a class="header" href="#20-полный-пример-системной-функции"><strong>20. Полный пример системной функции</strong></a></h2>
-<pre><code class="language-nasm">; Пример: безопасная копия памяти с проверкой границ
+<h2 id="20-полный-пример-системной-функции"><a class="header" href="#20-полный-пример-системной-функции">20. Полный пример системной функции</a></h2>
+<pre><code class="language-assembly">; Пример: безопасная копия памяти с проверкой границ
 global memcpy_safe
 memcpy_safe:
     ; RDI = dest, RSI = src, RDX = count, RCX = dest_size
@@ -627,8 +620,9 @@ memcpy_safe:
     pop rbp
     ret
 </code></pre>
-<h2 id="заключение-выбор-правильных-инструкций"><a class="header" href="#заключение-выбор-правильных-инструкций"><strong>Заключение: Выбор правильных инструкций</strong></a></h2>
-<h3 id="правила-выбора-инструкций"><a class="header" href="#правила-выбора-инструкций"><strong>Правила выбора инструкций:</strong></a></h3>
+<hr>
+<h2 id="заключение-выбор-правильных-инструкций"><a class="header" href="#заключение-выбор-правильных-инструкций">Заключение: Выбор правильных инструкций</a></h2>
+<h3 id="правила-выбора-инструкций"><a class="header" href="#правила-выбора-инструкций">Правила выбора инструкций:</a></h3>
 <ol>
 <li><strong>Читаемость vs Производительность</strong> — начинайте с читаемого кода, оптимизируйте позже</li>
 <li><strong>Размер vs Скорость</strong> — короткие инструкции часто быстрее</li>
@@ -636,14 +630,14 @@ memcpy_safe:
 <li><strong>Безопасность</strong> — атомарные операции для многопоточного кода</li>
 <li><strong>Специализация</strong> — используйте SIMD для обработки данных, строковые инструкции для работы с памятью</li>
 </ol>
-<h3 id="полезные-мнемоники"><a class="header" href="#полезные-мнемоники"><strong>Полезные мнемоники:</strong></a></h3>
+<h3 id="полезные-мнемоники"><a class="header" href="#полезные-мнемоники">Полезные мнемоники:</a></h3>
 <ul>
-<li><code>REP</code> — повторять, пока RCX &gt; 0</li>
-<li><code>LOCK</code> — атомарная операция</li>
-<li><code>STOS</code> — сохранить строку</li>
-<li><code>MOVS</code> — переместить строку</li>
-<li><code>CMPS</code> — сравнить строки</li>
-<li><code>SCAS</code> — сканировать строку</li>
+<li><strong>REP</strong> — повторять, пока RCX &gt; 0</li>
+<li><strong>LOCK</strong> — атомарная операция</li>
+<li><strong>STOS</strong> — сохранить строку</li>
+<li><strong>MOVS</strong> — переместить строку</li>
+<li><strong>CMPS</strong> — сравнить строки</li>
+<li><strong>SCAS</strong> — сканировать строку</li>
 </ul>
 <p>Эти инструкции образуют базовый набор для системного программирования на x86_64. В реальном ядре ОС вы будете использовать их комбинации для реализации всех низкоуровневых механизмов.</p>
 
@@ -651,7 +645,7 @@ memcpy_safe:
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../ASM/ASM_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../ASM/ASM_Rust_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -665,7 +659,7 @@ memcpy_safe:
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../ASM/ASM_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../ASM/ASM_Rust_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

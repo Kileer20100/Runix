@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Ассемблер и низкий уровень - Runix</title>
+        <title>Ассемблер и Rust низкий уровень без магии - Runix</title>
 
 
         <!-- Custom HTML head -->
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ceb01208.js";
+            window.path_to_searchindex_js = "../searchindex-97e26945.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-019780d5.js"></script>
+        <script src="../toc-3db8f990.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,30 +177,32 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="ассемблер-и-rust-низкий-уровень-без-магии"><a class="header" href="#ассемблер-и-rust-низкий-уровень-без-магии">Ассемблер и Rust: низкий уровень без магии</a></h2>
-<p>Этот раздел посвящён ассемблеру как языку процессора и его связке с Rust.
-Материал подойдёт не только для Runix, но и для любого системного программирования,
-драйверов, bare-metal и low-level оптимизаций.</p>
+                        <h1 id="ассемблер-и-rust-низкий-уровень-без-магии"><a class="header" href="#ассемблер-и-rust-низкий-уровень-без-магии">Ассемблер и Rust: низкий уровень без магии</a></h1>
+<p>Этот раздел посвящён ассемблеру как языку процессора и его связке с Rust. Материал подойдёт не только для Runix, но и для любого системного программирования, драйверов, bare-metal и low-level оптимизаций.</p>
 <h2 id="ассемблер-с-нуля"><a class="header" href="#ассемблер-с-нуля">Ассемблер с нуля</a></h2>
 <ul>
-<li><a href="ASM_1">Ассемблер с нуля: Язык процессора для всех</a></li>
-<li><a href="ASM_2">Адресация памяти: Как процессор находит данные</a></li>
-<li><a href="instructions_1">Ключевые инструкции x86_64 для системного программирования</a></li>
+<li><a href="ASM_1.html">Ассемблер с нуля: Язык процессора для всех</a></li>
+<li><a href="ASM_2.html">Адресация памяти: Как процессор находит данные</a></li>
+<li><a href="instructions_1.html">Ключевые инструкции x86_64 для системного программирования</a></li>
 </ul>
 <h2 id="ассемблер-на-практике"><a class="header" href="#ассемблер-на-практике">Ассемблер на практике</a></h2>
 <ul>
-<li><a href="Creation_first_code_the_ASM_language">Создание первого кода на языке ASM</a></li>
+<li><a href="Creation_first_code_the_ASM_language.html">Создание первого кода на языке ASM</a></li>
 </ul>
 <h2 id="ассемблер-и-rust"><a class="header" href="#ассемблер-и-rust">Ассемблер и Rust</a></h2>
 <ul>
-<li><a href="ASM_Rust_1">Ассемблер и Rust: Связь высокого и низкого уровня</a></li>
+<li><a href="ASM_Rust_1.html">Ассемблер и Rust: Связь высокого и низкого уровня</a></li>
+</ul>
+<h2 id="начало-работы"><a class="header" href="#начало-работы">Начало работы</a></h2>
+<ul>
+<li><a href="Start_Full_ASM.html">Полное руководство по ассемблеру для Runix</a></li>
 </ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../Building_Minimal_Rust_Kernel_Practical_Start_Runix.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../Creation_first_code_the_ASM_language.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -214,7 +216,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../Building_Minimal_Rust_Kernel_Practical_Start_Runix.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../Creation_first_code_the_ASM_language.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

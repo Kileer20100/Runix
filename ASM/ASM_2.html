@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ceb01208.js";
+            window.path_to_searchindex_js = "../searchindex-97e26945.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-019780d5.js"></script>
+        <script src="../toc-3db8f990.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,36 +177,39 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="адресация-памяти-как-процессор-находит-данные"><a class="header" href="#адресация-памяти-как-процессор-находит-данные"><strong>Адресация памяти: Как процессор находит данные</strong></a></h2>
-<p>В ассемблере регистры — это быстрые карманы, а память — огромный склад. Чтобы процессор достал данные, нужно указать, откуда именно их брать. Существуют несколько способов адресации: <strong>прямая</strong>, <strong>косвенная</strong>, <strong>со смещением</strong> и <strong>с индексом</strong>.</p>
-<h3 id="11-прямая-адресация"><a class="header" href="#11-прямая-адресация"><strong>1.1 Прямая адресация</strong></a></h3>
+                        <h1 id="адресация-памяти-как-процессор-находит-данные"><a class="header" href="#адресация-памяти-как-процессор-находит-данные">Адресация памяти: Как процессор находит данные</a></h1>
+<p>В ассемблере регистры — это быстрые карманы, а память — огромный склад. Чтобы процессор достал данные, нужно указать, откуда именно их брать. Существуют несколько способов адресации: прямая, косвенная, со смещением и с индексом.</p>
+<h2 id="11-прямая-адресация"><a class="header" href="#11-прямая-адресация">1.1 Прямая адресация</a></h2>
 <p>Прямая адресация — это когда процессору говорят: «Возьми данные по конкретному адресу».</p>
-<pre><code class="language-nasm">mov rax, [0x601040] ; Считать 8 байт из адреса 0x601040
+<pre><code class="language-assembly">mov rax, [0x601040] ; Считать 8 байт из адреса 0x601040
 </code></pre>
-<p>Здесь <code>[0x601040]</code> — конкретный адрес в памяти, а регистр <code>RAX</code> теперь содержит данные по этому адресу.<br><strong>Аналогия:</strong> представьте шкаф с ячейками, у каждой есть номер. Вы берёте конкретную ячейку — это прямая адресация.</p>
-<h3 id="12-косвенная-адресация"><a class="header" href="#12-косвенная-адресация"><strong>1.2 Косвенная адресация</strong></a></h3>
+<p>Здесь <code>[0x601040]</code> — конкретный адрес в памяти, а регистр RAX теперь содержит данные по этому адресу.</p>
+<p><strong>Аналогия:</strong> представьте шкаф с ячейками, у каждой есть номер. Вы берёте конкретную ячейку — это прямая адресация.</p>
+<h2 id="12-косвенная-адресация"><a class="header" href="#12-косвенная-адресация">1.2 Косвенная адресация</a></h2>
 <p>Косвенная адресация использует регистр как указатель. Вместо прямого адреса мы говорим: «Возьми данные по адресу, который хранится в регистре».</p>
-<pre><code class="language-nasm">mov rax, [rdi]  ; rdi хранит адрес массива
+<pre><code class="language-assembly">mov rax, [rdi]  ; rdi хранит адрес массива
 </code></pre>
-<p>Если <code>rdi = 0x601040</code>, это эквивалентно <code>mov rax, [0x601040]</code>. Такой способ удобен, когда адрес динамический.<br><strong>Аналогия:</strong> у вас в руках конверт с номером ячейки на складе. Сначала смотрите в конверт, а затем идёте за ячейкой.</p>
-<h3 id="13-адресация-со-смещением"><a class="header" href="#13-адресация-со-смещением"><strong>1.3 Адресация со смещением</strong></a></h3>
+<p>Если <code>rdi = 0x601040</code>, это эквивалентно <code>mov rax, [0x601040]</code>. Такой способ удобен, когда адрес динамический.</p>
+<p><strong>Аналогия:</strong> у вас в руках конверт с номером ячейки на складе. Сначала смотрите в конверт, а затем идёте за ячейкой.</p>
+<h2 id="13-адресация-со-смещением"><a class="header" href="#13-адресация-со-смещением">1.3 Адресация со смещением</a></h2>
 <p>Адресация со смещением нужна, когда обращаемся к элементам массива:</p>
-<pre><code class="language-nasm">mov rax, [rdi + 8]   ; Берём следующий элемент (64-битный = 8 байт)
+<pre><code class="language-assembly">mov rax, [rdi + 8]   ; Берём следующий элемент (64-битный = 8 байт)
 mov rax, [rdi + 16]  ; Ещё один элемент дальше
 </code></pre>
-<p><code>[rdi + 8]</code> → адрес в <code>rdi</code> + 8 байт, <code>[rdi + 16]</code> → адрес в <code>rdi</code> + 16 байт.<br><strong>Аналогия:</strong> у вас есть ряд ячеек на складе. Смещение говорит: «сдвинься на 1 шаг вперёд».</p>
-<h3 id="14-адресация-с-индексом"><a class="header" href="#14-адресация-с-индексом"><strong>1.4 Адресация с индексом</strong></a></h3>
+<p><code>[rdi + 8]</code> → адрес в rdi + 8 байт, <code>[rdi + 16]</code> → адрес в rdi + 16 байт.</p>
+<p><strong>Аналогия:</strong> у вас есть ряд ячеек на складе. Смещение говорит: «сдвинься на 1 шаг вперёд».</p>
+<h2 id="14-адресация-с-индексом"><a class="header" href="#14-адресация-с-индексом">1.4 Адресация с индексом</a></h2>
 <p>Адресация с индексом позволяет гибко работать с массивами, используя регистр как индекс:</p>
-<pre><code class="language-nasm">mov rax, [rdi + rcx*8]  ; rdi = адрес массива, rcx = индекс элемента
+<pre><code class="language-assembly">mov rax, [rdi + rcx*8]  ; rdi = адрес массива, rcx = индекс элемента
 </code></pre>
-<p>Здесь <code>rcx*8</code> умножает индекс на размер элемента (8 байт для 64-битного числа). Теперь <code>RAX</code> содержит данные элемента с номером <code>RCX</code>.</p>
+<p>Здесь <code>rcx*8</code> умножает индекс на размер элемента (8 байт для 64-битного числа). Теперь RAX содержит данные элемента с номером RCX.</p>
 <p><strong>Пример:</strong></p>
-<pre><code class="language-nasm">; rdi = адрес массива
+<pre><code class="language-assembly">; rdi = адрес массива
 mov rcx, 2          ; хотим третий элемент (индекс 2)
 mov rax, [rdi + rcx*8]
 </code></pre>
 <p><strong>Аналогия:</strong> стоя у начала ряда ячеек на складе, вы считаете: «прыгну на 2 ячейки вправо — беру третий объект».</p>
-<h3 id="15-сводная-таблица-адресации"><a class="header" href="#15-сводная-таблица-адресации"><strong>1.5 Сводная таблица адресации</strong></a></h3>
+<h2 id="15-сводная-таблица-адресации"><a class="header" href="#15-сводная-таблица-адресации">1.5 Сводная таблица адресации</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -220,8 +223,8 @@ mov rax, [rdi + rcx*8]
 </tbody>
 </table>
 </div>
-<h3 id="16-практика-суммирование-массива"><a class="header" href="#16-практика-суммирование-массива"><strong>1.6 Практика: Суммирование массива</strong></a></h3>
-<pre><code class="language-nasm">global sum_array
+<h2 id="16-практика-суммирование-массива"><a class="header" href="#16-практика-суммирование-массива">1.6 Практика: Суммирование массива</a></h2>
+<pre><code class="language-assembly">global sum_array
 sum_array:
     xor rax, rax      ; сумма = 0
     xor rcx, rcx      ; индекс = 0
@@ -238,18 +241,10 @@ sum_array:
     ret
 </code></pre>
 <ul>
-<li>
-<p><strong>RDI</strong> → адрес массива</p>
-</li>
-<li>
-<p><strong>RSI</strong> → количество элементов</p>
-</li>
-<li>
-<p><strong>RCX</strong> → индекс текущего элемента</p>
-</li>
-<li>
-<p><strong>RAX</strong> → сумма элементов</p>
-</li>
+<li><strong>RDI</strong> → адрес массива</li>
+<li><strong>RSI</strong> → количество элементов</li>
+<li><strong>RCX</strong> → индекс текущего элемента</li>
+<li><strong>RAX</strong> → сумма элементов</li>
 </ul>
 
                     </main>
@@ -260,7 +255,7 @@ sum_array:
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../ASM/instructions_1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../ASM/ASM_Rust_1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -274,7 +269,7 @@ sum_array:
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../ASM/instructions_1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../ASM/ASM_Rust_1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

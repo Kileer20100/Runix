@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ceb01208.js";
+            window.path_to_searchindex_js = "../searchindex-97e26945.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-019780d5.js"></script>
+        <script src="../toc-3db8f990.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,29 +177,20 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="ассемблер-и-rust-связь-высокого-и-низкого-уровня"><a class="header" href="#ассемблер-и-rust-связь-высокого-и-низкого-уровня"><strong>Ассемблер и Rust: Связь высокого и низкого уровня</strong></a></h1>
+                        <h1 id="ассемблер-и-rust-связь-высокого-и-низкого-уровня"><a class="header" href="#ассемблер-и-rust-связь-высокого-и-низкого-уровня">Ассемблер и Rust: Связь высокого и низкого уровня</a></h1>
 <h2 id="1-зачем-связывать-rust-с-ассемблером"><a class="header" href="#1-зачем-связывать-rust-с-ассемблером">1. Зачем связывать Rust с ассемблером?</a></h2>
 <p>Rust — язык высокого уровня, удобный и безопасный. Но иногда нужно:</p>
 <ul>
-<li>
-<p>Максимальная производительность</p>
-</li>
-<li>
-<p>Прямое управление железом</p>
-</li>
-<li>
-<p>Оптимизация критичных участков</p>
-</li>
-<li>
-<p>Работа с кодом, которого нет в стандартной библиотеке</p>
-</li>
+<li>Максимальная производительность</li>
+<li>Прямое управление железом</li>
+<li>Оптимизация критичных участков</li>
+<li>Работа с кодом, которого нет в стандартной библиотеке</li>
 </ul>
-<p>Ассемблер даёт <strong>абсолютный контроль над процессором</strong>, а Rust позволяет <strong>безопасно управлять сложными структурами и памятью</strong>. Вместе они дают мощь и гибкость.</p>
-<hr>
+<p>Ассемблер даёт абсолютный контроль над процессором, а Rust позволяет безопасно управлять сложными структурами и памятью. Вместе они дают мощь и гибкость.</p>
 <h2 id="2-подготовка-ассемблера-для-вызова-из-rust"><a class="header" href="#2-подготовка-ассемблера-для-вызова-из-rust">2. Подготовка ассемблера для вызова из Rust</a></h2>
-<h3 id="шаг-1-пишем-функцию-на-nasm"><a class="header" href="#шаг-1-пишем-функцию-на-nasm"><strong>Шаг 1: Пишем функцию на NASM</strong></a></h3>
+<h3 id="шаг-1-пишем-функцию-на-nasm"><a class="header" href="#шаг-1-пишем-функцию-на-nasm">Шаг 1: Пишем функцию на NASM</a></h3>
 <p>Пример функции сложения двух чисел:</p>
-<pre><code class="language-nasm">; sum.asm
+<pre><code class="language-assembly">; sum.asm
 global add_numbers
 section .text
 add_numbers:
@@ -209,30 +200,20 @@ add_numbers:
 </code></pre>
 <p><strong>Важно:</strong></p>
 <ul>
-<li>
-<p><code>global add_numbers</code> — делает функцию видимой для компоновщика</p>
-</li>
-<li>
-<p>Используем <strong>System V AMD64 ABI</strong>, чтобы Rust знал, куда передавать аргументы</p>
-</li>
+<li><code>global add_numbers</code> — делает функцию видимой для компоновщика</li>
+<li>Используем System V AMD64 ABI, чтобы Rust знал, куда передавать аргументы</li>
 </ul>
-<hr>
-<h3 id="шаг-2-компиляция-в-объектный-файл"><a class="header" href="#шаг-2-компиляция-в-объектный-файл"><strong>Шаг 2: Компиляция в объектный файл</strong></a></h3>
-<pre><code class="language-bash">nasm -f elf64 sum.asm -o sum.o
+<h3 id="шаг-2-компиляция-в-объектный-файл"><a class="header" href="#шаг-2-компиляция-в-объектный-файл">Шаг 2: Компиляция в объектный файл</a></h3>
+<pre><code>nasm -f elf64 sum.asm -o sum.o
 </code></pre>
 <ul>
-<li>
-<p><code>-f elf64</code> → объектный файл для x86_64 Linux</p>
-</li>
-<li>
-<p>Можно затем собрать статическую библиотеку:</p>
-</li>
+<li><code>-f elf64</code> → объектный файл для x86_64 Linux</li>
+<li>Можно затем собрать статическую библиотеку:</li>
 </ul>
-<pre><code class="language-bash">ar rcs libasm.a sum.o
+<pre><code>ar rcs libasm.a sum.o
 </code></pre>
-<hr>
 <h2 id="3-вызов-ассемблера-из-rust"><a class="header" href="#3-вызов-ассемблера-из-rust">3. Вызов ассемблера из Rust</a></h2>
-<h3 id="31-объявление-функции-в-rust"><a class="header" href="#31-объявление-функции-в-rust"><strong>3.1 Объявление функции в Rust</strong></a></h3>
+<h3 id="31-объявление-функции-в-rust"><a class="header" href="#31-объявление-функции-в-rust">3.1 Объявление функции в Rust</a></h3>
 <pre class="playground"><code class="language-rust">extern "C" {
     fn add_numbers(a: u64, b: u64) -&gt; u64;
 }
@@ -251,19 +232,12 @@ fn main() {
 }</code></pre>
 <p><strong>Объяснение:</strong></p>
 <ul>
-<li>
-<p><code>extern "C"</code> → Rust использует стандартные правила вызова функций (ABI)</p>
-</li>
-<li>
-<p><code>unsafe</code> → вызов внешнего кода может быть небезопасным</p>
-</li>
-<li>
-<p>Результат возвращается через <code>rax</code> (стандарт для 64-битных целых чисел)</p>
-</li>
+<li><code>extern "C"</code> → Rust использует стандартные правила вызова функций (ABI)</li>
+<li><code>unsafe</code> → вызов внешнего кода может быть небезопасным</li>
+<li>Результат возвращается через rax (стандарт для 64-битных целых чисел)</li>
 </ul>
-<hr>
-<h3 id="32-связка-через-cargo"><a class="header" href="#32-связка-через-cargo"><strong>3.2 Связка через Cargo</strong></a></h3>
-<p>В <code>build.rs</code> можно автоматически копировать библиотеку:</p>
+<h3 id="32-связка-через-cargo"><a class="header" href="#32-связка-через-cargo">3.2 Связка через Cargo</a></h3>
+<p>В build.rs можно автоматически копировать библиотеку:</p>
 <pre class="playground"><code class="language-rust">use std::env;
 use std::path::PathBuf;
 
@@ -274,17 +248,12 @@ fn main() {
     println!("cargo:rustc-link-lib=static=asm");
 }</code></pre>
 <ul>
-<li>
-<p><code>cargo build</code> автоматически подхватит библиотеку</p>
-</li>
-<li>
-<p>Rust сможет вызывать ассемблерный код напрямую</p>
-</li>
+<li><code>cargo build</code> автоматически подхватит библиотеку</li>
+<li>Rust сможет вызывать ассемблерный код напрямую</li>
 </ul>
-<hr>
 <h2 id="4-пример-сумма-массива"><a class="header" href="#4-пример-сумма-массива">4. Пример: Сумма массива</a></h2>
-<p>Ассемблерная функция:</p>
-<pre><code class="language-nasm">global sum_array
+<h3 id="ассемблерная-функция"><a class="header" href="#ассемблерная-функция">Ассемблерная функция:</a></h3>
+<pre><code class="language-assembly">global sum_array
 section .text
 sum_array:
     xor rax, rax       ; сумма = 0
@@ -298,7 +267,7 @@ sum_array:
 .done:
     ret
 </code></pre>
-<p>Rust:</p>
+<h3 id="rust"><a class="header" href="#rust">Rust:</a></h3>
 <pre class="playground"><code class="language-rust">extern "C" {
     fn sum_array(ptr: *const u64, len: u64) -&gt; u64;
 }
@@ -313,45 +282,29 @@ fn main() {
 
     println!("Сумма массива: {}", sum);
 }</code></pre>
-<hr>
 <h2 id="5-практические-советы"><a class="header" href="#5-практические-советы">5. Практические советы</a></h2>
-<ol>
-<li>
-<p><strong>Всегда проверяйте ABI</strong> — регистры и порядок аргументов должны совпадать</p>
-</li>
-<li>
-<p><strong>Используйте <code>extern "C"</code></strong> для совместимости</p>
-</li>
-<li>
-<p><strong>Используйте <code>unsafe</code> только для вызова ассемблера</strong></p>
-</li>
-<li>
-<p><strong>Тестируйте на небольших функциях</strong> — сложный ассемблерный код трудно отлаживать</p>
-</li>
-</ol>
-<hr>
+<ul>
+<li>Всегда проверяйте ABI — регистры и порядок аргументов должны совпадать</li>
+<li>Используйте <code>extern "C"</code> для совместимости</li>
+<li>Используйте <code>unsafe</code> только для вызова ассемблера</li>
+<li>Тестируйте на небольших функциях — сложный ассемблерный код трудно отлаживать</li>
+</ul>
 <h2 id="6-что-дальше"><a class="header" href="#6-что-дальше">6. Что дальше?</a></h2>
-<ol>
-<li>
-<p>Вы освоили <strong>простые функции на ассемблере и вызов из Rust</strong></p>
-</li>
-<li>
-<p>Можно создавать <strong>оптимизированные ядра, драйверы, обработчики прерываний</strong></p>
-</li>
-<li>
-<p>Следующий шаг — <strong>встраивание ассемблера в системное программирование и работу с портами/устройствами</strong></p>
-</li>
-</ol>
+<ul>
+<li>Вы освоили простые функции на ассемблере и вызов из Rust</li>
+<li>Можно создавать оптимизированные ядра, драйверы, обработчики прерываний</li>
+<li>Следующий шаг — встраивание ассемблера в системное программирование и работу с портами/устройствами</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../ASM/Creation_first_code_the_ASM_language.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../ASM/ASM_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../driver.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../ASM/instructions_1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -361,11 +314,11 @@ fn main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../ASM/Creation_first_code_the_ASM_language.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../ASM/ASM_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../driver.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../ASM/instructions_1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

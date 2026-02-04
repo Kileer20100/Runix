@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Создание первого кода на языке ASM - Runix</title>
+        <title>Загрузка и переход к реальному ядру - Runix</title>
 
 
         <!-- Custom HTML head -->
@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
-        <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
-        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../";
+            const path_to_root = "";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-97e26945.js";
+            window.path_to_searchindex_js = "searchindex-97e26945.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-3db8f990.js"></script>
+        <script src="toc-3db8f990.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -105,7 +105,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -140,7 +140,7 @@
                     <h1 class="menu-title">Runix</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/Kileer20100/Runix" title="Git repository" aria-label="Git repository">
@@ -177,113 +177,17 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="создание-первого-кода-на-языке-asm"><a class="header" href="#создание-первого-кода-на-языке-asm"><strong>Создание первого кода на языке ASM</strong></a></h1>
-<h2 id="введение-необходимость-ассемблера-в-ядре"><a class="header" href="#введение-необходимость-ассемблера-в-ядре"><strong>Введение: Необходимость ассемблера в ядре</strong></a></h2>
-<p>Мы уже создали первый драйвер на Rust. Теперь нужно подключить ASM к нашему Rust-коду. Зачем это нужно? Потому что невозможно создать планировщик для ядра без прямого обращения к ассемблеру. Мы обсудим это подробнее в будущем.</p>
-<h2 id="интеграция-ассемблера-в-rust"><a class="header" href="#интеграция-ассемблера-в-rust"><strong>Интеграция ассемблера в Rust</strong></a></h2>
-<h3 id="rust-код-с-вызовом-ассемблерной-функции"><a class="header" href="#rust-код-с-вызовом-ассемблерной-функции"><strong>Rust-код с вызовом ассемблерной функции</strong></a></h3>
-<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// src/cpu/cpu_info.rs
-
-use crate::println;
-
-// Объявляем внешнюю ассемблерную функцию
-unsafe extern "C" {
-    fn add(a: i64, b: i64) -&gt; i64;
-}
-
-pub fn cpu_info() {
-    println!("Add: {}", unsafe {
-        add(1, 2)
-    });
-}
-<span class="boring">}</span></code></pre>
-<p><strong>Что здесь происходит:</strong></p>
-<ol>
-<li><code>extern "C"</code> — указывает, что функция использует соглашение о вызовах C</li>
-<li><code>unsafe</code> — необходим, так как вызываем код, который Rust не может проверить</li>
-<li><code>add(1, 2)</code> — вызываем ассемблерную функцию сложения</li>
-</ol>
-<h3 id="ассемблерная-реализация"><a class="header" href="#ассемблерная-реализация"><strong>Ассемблерная реализация</strong></a></h3>
-<pre><code class="language-nasm">; src/cpu/cpu_info.asm
-bits 64          ; 64-битный режим процессора
-global add       ; Экспортируем функцию для линковки
-
-section .text    ; Исполняемый сегмент кода
-add:
-    mov rax, rdi ; Первый аргумент (a) из RDI в RAX
-    add rax, rsi ; Прибавляем второй аргумент (b) из RSI
-    ret          ; Возвращаем результат в RAX
-</code></pre>
-<p><strong>Объяснение:</strong></p>
-<ol>
-<li><code>bits 64</code> — генерируем 64-битный код</li>
-<li><code>global add</code> — делаем функцию видимой для линковщика</li>
-<li><code>add:</code> — метка функции</li>
-<li>Согласно System V AMD64 ABI:
-<ul>
-<li>Первый аргумент передаётся в RDI</li>
-<li>Второй аргумент передаётся в RSI</li>
-<li>Результат возвращается в RAX</li>
-</ul>
-</li>
-</ol>
-<h2 id="сборка-проекта"><a class="header" href="#сборка-проекта"><strong>Сборка проекта</strong></a></h2>
-<h3 id="команды-сборки-вручную"><a class="header" href="#команды-сборки-вручную"><strong>Команды сборки вручную</strong></a></h3>
-<pre><code class="language-bash"># Компилируем ассемблерный код
-nasm -f elf64 src/cpu/cpu_info.asm -o cpu_info.o
-
-# Создаём статическую библиотеку
-ar rcs libasm.a cpu_info.o
-</code></pre>
-<h3 id="автоматизация-сборки-через-buildrs"><a class="header" href="#автоматизация-сборки-через-buildrs"><strong>Автоматизация сборки через build.rs</strong></a></h3>
-<pre class="playground"><code class="language-rust">// build.rs
-use std::env;
-use std::path::PathBuf;
-
-fn main() {
-    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
-
-    // Копируем собранную библиотеку (предполагаем, что она уже собрана)
-    std::fs::copy("libasm.a", out_dir.join("libasm.a")).unwrap();
-
-    // Указываем линковщику где искать библиотеку
-    println!("cargo:rustc-link-search=native={}", out_dir.display());
-    println!("cargo:rustc-link-lib=static=asm");
-}</code></pre>
-<h2 id="как-это-работает-вместе"><a class="header" href="#как-это-работает-вместе"><strong>Как это работает вместе</strong></a></h2>
-<h3 id="процесс-сборки"><a class="header" href="#процесс-сборки"><strong>Процесс сборки:</strong></a></h3>
-<ol>
-<li>NASM компилирует <code>cpu_info.asm</code> в объектный файл <code>cpu_info.o</code></li>
-<li>AR создаёт статическую библиотеку <code>libasm.a</code></li>
-<li>build.rs копирует библиотеку в выходную директорию Cargo</li>
-<li>Rust линковщик подключает библиотеку к нашему ядру</li>
-<li>да я понимаю Rust код вызывает ассемблерную функцию через FFI</li>
-</ol>
-<h3 id="результат-выполнения"><a class="header" href="#результат-выполнения"><strong>Результат выполнения:</strong></a></h3>
-<p>При вызове <code>cpu_info()</code> будет выведено:
-<img src="media/add_asm.png" alt="core"></p>
-<h2 id="следующие-шаги"><a class="header" href="#следующие-шаги"><strong>Следующие шаги</strong></a></h2>
-<p>Это базовая интеграция ассемблера. В будущем мы:</p>
-<ol>
-<li>Добавим автоматическую сборку ассемблерного кода в build.rs</li>
-<li>Создадим реальные функции работы с процессором</li>
-<li>Реализуем переключение контекста для планировщика</li>
-<li>Добавим обработку прерываний</li>
-</ol>
-<p>Сейчас мы доказали, что можем вызывать ассемблерный код из Rust, что открывает путь к созданию полноценного планировщика задач.</p>
-<p><a href="first_problem_bootloader">Почему крейт bootloader подходит только на начальном этапе</a></p>
+                        <h1 id="загрузка-и-переход-к-реальному-ядру"><a class="header" href="#загрузка-и-переход-к-реальному-ядру">Загрузка и переход к реальному ядру</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../ASM/instructions_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ASM/Creation_first_code_the_ASM_language.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../bootloader.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="first_problem_bootloader.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -293,11 +197,11 @@ fn main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../ASM/instructions_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ASM/Creation_first_code_the_ASM_language.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../bootloader.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="first_problem_bootloader.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -317,13 +221,13 @@ fn main() {
         </script>
 
 
-        <script src="../elasticlunr-ef4e11c1.min.js"></script>
-        <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
 
-        <script src="../clipboard-1626706a.min.js"></script>
-        <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
 
