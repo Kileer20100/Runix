@@ -1,3 +1,0 @@
-cargo:rerun-if-changed=src/cpu/cpu_info.asm
-cargo:rustc-link-search=native=/home/kiril/Rust/Runix/kernel/target/x86_64-unknown-none/release/build/Runix-b48b12dac98d575a/out
-cargo:rustc-link-lib=static=asm
